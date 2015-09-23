@@ -1,4 +1,3 @@
-
 /*
 " --------------------------------------------------
 "   FileName: ndoo_prep.coffee
@@ -7,40 +6,43 @@
 "    Version: v1.0
 " LastChange: 09/23/2015 23:57
 " --------------------------------------------------
- */
-
-/* Notice: 不要修改本文件，本文件由ndoo_prep.coffee自动生成 */
-(function() {
+*/
+(function(){
+  /* Notice: 不要修改本文件，本文件由ndoo_prep.ls自动生成 */
   "use strict";
   var _n;
-  _n = this;
-
-  /*变量名称空间 */
-  _n.vars || (_n.vars = {});
-
-  /*函数名称空间 */
-  _n.func || (_n.func = {});
-
-  /*页面脚本空间 */
-  _n.app || (_n.app = {});
-
-  /*调试开关 */
-  _n.isDebug = 0;
+  if (this.ndoo) {
+    return;
+  }
+  this.N = this.ndoo || (this.ndoo = {});
+  /**
+   * ndoojs 全局名称空间，短名称N
+   *
+   * @namespace ndoo
+   */
+  _n = this.ndoo;
+  /**
+   * _isDebug 是否开启调试模式
+   *
+   * @name _isDebug
+   * @memberof ndoo
+   * @type {boolean}
+   */
+  _n._isDebug = 0;
   _n.DELAY_FAST = 0;
   _n.DELAY_DOM = 1;
   _n.DELAY_DOMORLOAD = 2;
   _n.DELAY_LOAD = 3;
   _n._delayArr = [[], [], [], []];
-  _n.delayRun = function(level, req, fn) {
+  _n.delayRun = function(level, req, fn){
     fn || (fn = [req, req = []][0]);
     if (typeof req === 'string') {
       req = req.split(',');
     }
     this._delayArr[level].push([req, fn]);
-    return void 0;
   };
   _n._hookData = {};
-  _n.hook = function(name, call, isOverwrite) {
+  _n.hook = function(name, call, isOverwrite){
     var args;
     if (call && call.apply) {
       if (this._hookData[name] && !isOverwrite) {
@@ -49,10 +51,37 @@
       this._hookData[name] = call;
       return true;
     } else {
-      if (call = [this._hookData[name], args = [].concat(call) || []][0]) {
+      call = this._hookData[name];
+      args = [].concat(call);
+      if (call) {
         return call.apply(null, args);
       }
     }
   };
-  return _n;
-}).call(this.N = this.ndoo = this.ndoo || {});
+  /**
+   * 变量存储名称空间
+   *
+   * @namespace
+   * @name vars
+   * @memberof ndoo
+   * @type {object}
+   * @example // alias _vars
+   * var _vars = ndoo.vars;
+   * vars.bar = 'bar';
+   */
+  _n.vars || (_n.vars = {});
+  /**
+   * 函数存储名称空间
+   *
+   * @namespace
+   * @name func
+   * @memberof ndoo
+   * @type {object}
+   * @example // alias _func
+   * var _func = ndoo.func;
+   * _func.foo = function() {
+   *   console.log('foo');
+   * }
+   */
+  _n.func || (_n.func = {});
+}).call(this);
