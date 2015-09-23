@@ -4,8 +4,8 @@
 "   FileName: app.coffee
 "       Desc: app.js webapp逻辑脚本
 "     Author: chenglifu
-"    Version: v0.1
-" LastChange: 03/19/2014 11:19
+"    Version: v1.0
+" LastChange: 09/23/2015 23:57
 " --------------------------------------------------
  */
 

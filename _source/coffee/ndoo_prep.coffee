@@ -1,10 +1,10 @@
 ###
 " --------------------------------------------------
 "   FileName: ndoo_prep.coffee
-"       Desc: ndoo.js前置文件 for mini
+"       Desc: ndoo.js前置文件 for lite
 "     Author: chenglifu
-"    Version: ndoo.js(v0.1b2)
-" LastChange: 11/04/2014 15:48
+"    Version: v1.0
+" LastChange: 09/23/2015 23:57
 " --------------------------------------------------
 ###
 ### Notice: 不要修改本文件，本文件由ndoo_prep.coffee自动生成 ###
