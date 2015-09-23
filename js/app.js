@@ -1,4 +1,3 @@
-
 /*
 " --------------------------------------------------
 "   FileName: app.coffee
@@ -7,27 +6,22 @@
 "    Version: v1.0
 " LastChange: 09/23/2015 23:57
 " --------------------------------------------------
- */
-
-/* Notice: 不要修改本文件，本文件由app.coffee自动生成 */
-(function($) {
-  "use strict";
-  var _func, _n, _stor, _vars;
-  _n = this;
+*/
+(function(){
+  /* Notice: 不要修改本文件，本文件由app.ls自动生成 */
+  'use strict';
+  var $, _n, _vars, _func, _stor;
+  $ = this['jQuery'] || this['Zepto'];
+  _n = this.ndoo;
   _vars = _n.vars;
   _func = _n.func;
   _stor = _n.storage;
-
-  /* 模块定义 {{{ */
   _n.app('home', {
-    indexAction: function() {
+    indexAction: function(){
       console.log('action');
     },
-    indexPortionAction: function() {
+    indexPortionAction: function(){
       console.log('portion action');
     }
   });
-
-  /* }}} */
-  return _n;
-}).call(this.N = this.ndoo = this.ndoo || {}, Zepto);
+}).call(this);
