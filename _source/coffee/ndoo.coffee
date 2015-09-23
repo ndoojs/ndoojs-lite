@@ -46,9 +46,11 @@
     return
   # }}}
   ### storage module {{{ ###
-  _n.storage = (key, value, force, destroy) ->
-    data = _n.storage._data
+  _n.storage = (key, value, option) ->
+    destroy = option & _n.storage.DESTROY
+    rewrite = option & _n.storage.REWRITE
 
+    data = _n.storage._data
     if value is undefined
       return data[key]
 
@@ -56,12 +58,18 @@
       delete data[key]
       return true
 
-    if not force and data.hasOwnProperty(key)
+    if not rewrite and data.hasOwnProperty key
       return false
 
     data[key] = value
 
+    data[key]
+
   _n.storage._data = {}
+  _n.storage.REWRITE = 1
+  _n.storage.DESTROY = 2
+
+  _stor    = _n.storage
   ### }}} ###
 
   ### define app package {{{ ###
