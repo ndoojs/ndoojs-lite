@@ -1,3 +1,4 @@
+
 /*
 " --------------------------------------------------
 "   FileName: ndoo.coffee
@@ -14,11 +15,11 @@
   var _func, _n, _stor, _vars;
   _n = this;
   _n._delayRunHandle = function() {
-    var fn, _i, _len, _ref;
+    var fn, i, len, ref;
     if (this._delayArr[0].length) {
-      _ref = this._delayArr[0];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        fn = _ref[_i];
+      ref = this._delayArr[0];
+      for (i = 0, len = ref.length; i < len; i++) {
+        fn = ref[i];
         fn[1]();
       }
       if (this._isDebug) {
@@ -27,15 +28,15 @@
     }
     if (this._delayArr[1].length || this._delayArr[2].length) {
       $(function() {
-        var fns, _j, _k, _len1, _len2;
+        var fns, j, k, len1, len2;
         fns = _n._delayArr[1];
-        for (_j = 0, _len1 = fns.length; _j < _len1; _j++) {
-          fn = fns[_j];
+        for (j = 0, len1 = fns.length; j < len1; j++) {
+          fn = fns[j];
           fn[1]();
         }
         fns = _n._delayArr[2];
-        for (_k = 0, _len2 = fns.length; _k < _len2; _k++) {
-          fn = fns[_k];
+        for (k = 0, len2 = fns.length; k < len2; k++) {
+          fn = fns[k];
           fn[1]();
         }
         if (_n._isDebug) {
@@ -46,10 +47,10 @@
     }
     if (this._delayArr[3].length) {
       $(window).bind('load', function() {
-        var fns, _j, _len1;
+        var fns, j, len1;
         fns = _n._delayArr[3];
-        for (_j = 0, _len1 = fns.length; _j < _len1; _j++) {
-          fn = fns[_j];
+        for (j = 0, len1 = fns.length; j < len1; j++) {
+          fn = fns[j];
           fn[1]();
         }
         if (_n._isDebug) {
@@ -60,8 +61,10 @@
   };
 
   /* storage module {{{ */
-  _n.storage = function(key, value, force, destroy) {
-    var data;
+  _n.storage = function(key, value, option) {
+    var data, destroy, rewrite;
+    destroy = option & _n.storage.DESTROY;
+    rewrite = option & _n.storage.REWRITE;
     data = _n.storage._data;
     if (value === void 0) {
       return data[key];
@@ -70,19 +73,23 @@
       delete data[key];
       return true;
     }
-    if (!force && data.hasOwnProperty(key)) {
+    if (!rewrite && data.hasOwnProperty(key)) {
       return false;
     }
-    return data[key] = value;
+    data[key] = value;
+    return data[key];
   };
   _n.storage._data = {};
+  _n.storage.REWRITE = 1;
+  _n.storage.DESTROY = 2;
+  _stor = _n.storage;
 
   /* }}} */
 
   /* define app package {{{ */
   _n.app = function(name, app) {
-    var _base;
-    (_base = _n.app)[name] || (_base[name] = {});
+    var base;
+    (base = _n.app)[name] || (base[name] = {});
     $.extend(_n.app[name], app);
   };
 
@@ -102,9 +109,9 @@
     init: function() {
       var _entry, _stateChange;
       _func._stateCallback = function(state, pageid, token, call) {
-        var callback, storKey, _ref;
+        var callback, ref, storKey;
         if (!call && typeof token === 'function') {
-          _ref = ["token_" + (_n.getPK()), token], token = _ref[0], call = _ref[1];
+          ref = ["token_" + (_n.getPK()), token], token = ref[0], call = ref[1];
         }
         if (_func.isUseTurbolinks() || state === 'common' || state === 'load') {
           storKey = '';
@@ -125,18 +132,18 @@
       (function() {
 
         /* state function generate */
-        var eventName, item, _i, _len, _ref, _results;
-        _ref = ['load', 'common'];
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          item = _ref[_i];
+        var eventName, i, item, len, ref, results;
+        ref = ['load', 'common'];
+        results = [];
+        for (i = 0, len = ref.length; i < len; i++) {
+          item = ref[i];
           eventName = item.replace(/^([a-z]{1})/, function(char) {
             return char.toUpperCase();
           });
           _func["addPage" + eventName + "Call"] = new Function('token', 'call', "this._stateCallback('" + item + "', ndoo.pageId, token, call);");
-          _results.push(_func["add" + eventName + "Call"] = new Function('token', 'call', "if (call) {\n  this._stateCallback('" + item + "', '_global', token, call);\n}"));
+          results.push(_func["add" + eventName + "Call"] = new Function('token', 'call', "if (call) {\n  this._stateCallback('" + item + "', '_global', token, call);\n}"));
         }
-        return _results;
+        return results;
 
         /*
          * _func.addPageLoad             ([token,] call)
@@ -188,7 +195,7 @@
           _n.common();
         }
         if (_n.pageId) {
-          if (pageIdMatched = _n.pageId.match(/([^/]+)(?:\/?)([^?#]*)(.*)/)) {
+          if (pageIdMatched = _n.pageId.match(/([^\/]+)(?:\/?)([^?#]*)(.*)/)) {
             controllerId = pageIdMatched[1];
             actionId = pageIdMatched[2];
             rawParams = pageIdMatched[3];
