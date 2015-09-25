@@ -1,4 +1,3 @@
-
 /*
 " --------------------------------------------------
 "   FileName: ndoo.coffee
@@ -7,19 +6,21 @@
 "    Version: v1.0
 " LastChange: 09/23/2015 23:57
 " --------------------------------------------------
- */
-
-/* Notice: 不要修改本文件，本文件由ndoo.coffee自动生成 */
-(function($) {
+*/
+(function(){
+  /* Notice: 不要修改本文件，本文件由ndoo.ls自动生成 */
   "use strict";
-  var _func, _n, _stor, _vars;
-  _n = this;
-  _n._delayRunHandle = function() {
-    var fn, i, len, ref;
+  var $, _n, _vars, _func, _stor;
+  $ = this['jQuery'] || this['Zepto'];
+  this.N = this.ndoo || (this.ndoo = {});
+  _n = this.ndoo;
+  _vars = _n.vars;
+  _func = _n.func;
+  _n._delayRunHandle = function(){
+    var i$, ref$, len$, fn;
     if (this._delayArr[0].length) {
-      ref = this._delayArr[0];
-      for (i = 0, len = ref.length; i < len; i++) {
-        fn = ref[i];
+      for (i$ = 0, len$ = (ref$ = this._delayArr[0]).length; i$ < len$; ++i$) {
+        fn = ref$[i$];
         fn[1]();
       }
       if (this._isDebug) {
@@ -27,16 +28,16 @@
       }
     }
     if (this._delayArr[1].length || this._delayArr[2].length) {
-      $(function() {
-        var fns, j, k, len1, len2;
+      $(function(){
+        var fns, i$, len$, fn;
         fns = _n._delayArr[1];
-        for (j = 0, len1 = fns.length; j < len1; j++) {
-          fn = fns[j];
+        for (i$ = 0, len$ = fns.length; i$ < len$; ++i$) {
+          fn = fns[i$];
           fn[1]();
         }
         fns = _n._delayArr[2];
-        for (k = 0, len2 = fns.length; k < len2; k++) {
-          fn = fns[k];
+        for (i$ = 0, len$ = fns.length; i$ < len$; ++i$) {
+          fn = fns[i$];
           fn[1]();
         }
         if (_n._isDebug) {
@@ -46,11 +47,11 @@
       });
     }
     if (this._delayArr[3].length) {
-      $(window).bind('load', function() {
-        var fns, j, len1;
+      $(window).bind('load', function(){
+        var fns, i$, len$, fn;
         fns = _n._delayArr[3];
-        for (j = 0, len1 = fns.length; j < len1; j++) {
-          fn = fns[j];
+        for (i$ = 0, len$ = fns.length; i$ < len$; ++i$) {
+          fn = fns[i$];
           fn[1]();
         }
         if (_n._isDebug) {
@@ -59,14 +60,12 @@
       });
     }
   };
-
-  /* storage module {{{ */
-  _n.storage = function(key, value, option) {
-    var data, destroy, rewrite;
+  _n.storage = function(key, value, option){
+    var destroy, rewrite, data;
     destroy = option & _n.storage.DESTROY;
     rewrite = option & _n.storage.REWRITE;
     data = _n.storage._data;
-    if (value === void 0) {
+    if (value === undefined) {
       return data[key];
     }
     if (destroy) {
@@ -83,45 +82,32 @@
   _n.storage.REWRITE = 1;
   _n.storage.DESTROY = 2;
   _stor = _n.storage;
-
-  /* }}} */
-
-  /* define app package {{{ */
-  _n.app = function(name, app) {
-    var base;
-    (base = _n.app)[name] || (base[name] = {});
+  _n.app = function(name, app){
+    var ref$;
+    (ref$ = _n.app)[name] || (ref$[name] = {});
     $.extend(_n.app[name], app);
   };
-
-  /* }}} */
-  _vars = _n.vars;
-  _func = _n.func;
-  _stor = _n.storage;
   $.extend(_n, {
-
-    /*自增量 */
     _pk: +new Date(),
-    getPK: function() {
+    getPK: function(){
       return ++this._pk;
     },
-
-    /*初始化 */
-    init: function() {
-      var _entry, _stateChange;
-      _func._stateCallback = function(state, pageid, token, call) {
-        var callback, ref, storKey;
+    init: function(){
+      var _stateChange, _entry;
+      _func._stateCallback = function(state, pageid, token, call){
+        var ref$, storKey, callback;
         if (!call && typeof token === 'function') {
-          ref = ["token_" + (_n.getPK()), token], token = ref[0], call = ref[1];
+          ref$ = ["token_" + _n.getPK(), token], token = ref$[0], call = ref$[1];
         }
         if (_func.isUseTurbolinks() || state === 'common' || state === 'load') {
           storKey = '';
           switch (state) {
-            case 'common':
-              storKey = 'pageCommonCall';
-              break;
-            case 'load':
-              storKey = 'pageLoadCall';
-              break;
+          case 'common':
+            storKey = 'pageCommonCall';
+            break;
+          case 'load':
+            storKey = 'pageLoadCall';
+            break;
           }
           callback = _stor(storKey) || {};
           callback[pageid] || (callback[pageid] = {});
@@ -129,40 +115,29 @@
           return _stor(storKey, callback, true);
         }
       };
-      (function() {
-
-        /* state function generate */
-        var eventName, i, item, len, ref, results;
-        ref = ['load', 'common'];
-        results = [];
-        for (i = 0, len = ref.length; i < len; i++) {
-          item = ref[i];
-          eventName = item.replace(/^([a-z]{1})/, function(char) {
-            return char.toUpperCase();
-          });
+      (function(){
+        var i$, ref$, len$, item, eventName, results$ = [];
+        for (i$ = 0, len$ = (ref$ = ['load', 'common']).length; i$ < len$; ++i$) {
+          item = ref$[i$];
+          eventName = item.replace(/^([a-z]{1})/, fn$);
           _func["addPage" + eventName + "Call"] = new Function('token', 'call', "this._stateCallback('" + item + "', ndoo.pageId, token, call);");
-          results.push(_func["add" + eventName + "Call"] = new Function('token', 'call', "if (call) {\n  this._stateCallback('" + item + "', '_global', token, call);\n}"));
+          results$.push(_func["add" + eventName + "Call"] = new Function('token', 'call', "if (call) {\n  this._stateCallback('" + item + "', '_global', token, call);\n}"));
         }
-        return results;
-
-        /*
-         * _func.addPageLoad             ([token,] call)
-         * _func.addLoadCall             (token, call)
-         *
-         * _func.addPageCommonCall       ([token,] call)
-         * _func.addCommonCall           (token, call)
-         */
+        return results$;
+        function fn$(char){
+          return char.toUpperCase();
+        }
       })();
-      _stateChange = function(state) {
-        var call, callback, globalcall, key, pagecall;
+      _stateChange = function(state){
+        var callback, globalcall, key, call, pagecall;
         callback = false;
         switch (state) {
-          case 'common':
-            callback = _stor('pageCommonCall');
-            break;
-          case 'load':
-            callback = _stor('pageLoadCall');
-            break;
+        case 'common':
+          callback = _stor('pageCommonCall');
+          break;
+        case 'load':
+          callback = _stor('pageLoadCall');
+          break;
         }
         if (!callback) {
           return;
@@ -186,29 +161,27 @@
           }
         }
       };
-      _entry = function() {
-
-        /*页面标识 */
-        var actionId, actionName, controller, controllerId, pageIdMatched, rawParams;
+      _entry = function(){
+        var pageIdMatched, controllerId, actionId, rawParams, controller, actionName;
         _n.pageId = $('#scriptArea').data('pageId');
         if (!_n.commonRun) {
           _n.common();
         }
         if (_n.pageId) {
-          if (pageIdMatched = _n.pageId.match(/([^\/]+)(?:\/?)([^?#]*)(.*)/)) {
+          if (pageIdMatched = _n.pageId.match(/([^/]+)(?:\/?)([^?#]*)(.*)/)) {
             controllerId = pageIdMatched[1];
             actionId = pageIdMatched[2];
             rawParams = pageIdMatched[3];
           }
           if (controller = _n.app[controllerId]) {
             if (actionId) {
-              actionName = actionId.replace(/(\/.)/, function(char) {
+              actionName = actionId.replace(/(\/.)/, function(char){
                 return char.substring(1, 2).toUpperCase();
               });
             } else {
               actionName = '_empty';
             }
-            if (typeof controller.init === "function") {
+            if (typeof controller.init == 'function') {
               controller.init();
             }
           }
@@ -226,53 +199,33 @@
         }
         _stateChange('load');
       };
-      _n.hook('commonCall', function() {
+      _n.hook('commonCall', function(){
         return _stateChange('common');
       });
       this.delayRun(this.DELAY_DOM, _entry);
-
-      /*延迟执行DOMLOAD */
       this._delayRunHandle();
     },
-
-    /*公共调用 */
-    common: function() {
-
-      /*init tpl */
+    common: function(){
       _n.hook('commonCall');
       this.commonRun = true;
     },
     commonRun: false,
-
-    /*初始化Dialog模板 initTpl */
-    initTpl: function() {
-      var $code, e, text;
+    initTpl: function(){
+      var $code, text, e;
       $code = $('#tplCode');
       if ($code.length) {
         text = $code.get(0).text.replace(/^\s*|\s*$/g, '');
         if (text !== '') {
           try {
             $(text).appendTo('#tplArea');
-          } catch (_error) {
-            e = _error;
+          } catch (e$) {
+            e = e$;
             return false;
           }
         }
         return true;
       }
       return false;
-    },
-
-    /* visit接口 */
-    visit: function(url) {
-      if (_func.isUseTurbolinks()) {
-        Turbolinks.visit(url);
-      } else {
-        location.href = url;
-      }
     }
   });
-
-  /*初始化入口 */
-  return _n;
-}).call(this.N = this.ndoo = this.ndoo || {}, Zepto);
+}).call(this);
