@@ -1,6 +1,6 @@
 /*
 " --------------------------------------------------
-"   FileName: ndoo.coffee
+"   FileName: ndoo.ls
 "       Desc: ndoo.js主结构文件 for lite
 "     Author: chenglifu
 "    Version: v1.0
@@ -90,10 +90,18 @@ _n.app = (name, app) ->
 ### }}} ###
 
 $.extend _n,
-  ###自增量###
-  _pk: +new Date()
-  getPK: ->
-    ++@_pk
+  /**
+   * 获取唯一key
+   *
+   * @method
+   * @name getPk
+   * @memberof ndoo
+   * @param {string} prefix
+   * @return {number}
+   */
+  getPk: do ->
+    _pk = +new Date!
+    (prefix='')-> prefix+(++_pk)
 
   ###初始化###
   # {{{

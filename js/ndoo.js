@@ -1,6 +1,6 @@
 /*
 " --------------------------------------------------
-"   FileName: ndoo.coffee
+"   FileName: ndoo.ls
 "       Desc: ndoo.js主结构文件 for lite
 "     Author: chenglifu
 "    Version: v1.0
@@ -88,10 +88,23 @@
     $.extend(_n.app[name], app);
   };
   $.extend(_n, {
-    _pk: +new Date(),
-    getPK: function(){
-      return ++this._pk;
-    },
+    /**
+     * 获取唯一key
+     *
+     * @method
+     * @name getPk
+     * @memberof ndoo
+     * @param {string} prefix
+     * @return {number}
+     */
+    getPk: function(){
+      var _pk;
+      _pk = +new Date();
+      return function(prefix){
+        prefix == null && (prefix = '');
+        return prefix + (++_pk);
+      };
+    }(),
     init: function(){
       var _stateChange, _entry;
       _func._stateCallback = function(state, pageid, token, call){
