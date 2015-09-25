@@ -68,6 +68,12 @@ _n.hook = (name, call, isOverwrite) ->
       call ...args
 # }}}
 
+_n.on = (eventName, callback) ->
+  _n.hook eventName, callback
+
+_n.trigger = (eventName) ->
+  _n.hook eventName
+
 /**
  * 变量存储名称空间
  *

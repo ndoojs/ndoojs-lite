@@ -58,6 +58,12 @@
       }
     }
   };
+  _n.on = function(eventName, callback){
+    return _n.hook(eventName, callback);
+  };
+  _n.trigger = function(eventName){
+    return _n.hook(eventName);
+  };
   /**
    * 变量存储名称空间
    *
