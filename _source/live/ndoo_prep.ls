@@ -1,6 +1,6 @@
 /*
 " --------------------------------------------------
-"   FileName: ndoo_prep.coffee
+"   FileName: ndoo_prep.ls
 "       Desc: ndoo.js前置文件 for lite
 "     Author: chenglifu
 "    Version: v1.0
