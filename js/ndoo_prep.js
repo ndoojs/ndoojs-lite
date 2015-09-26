@@ -1,6 +1,6 @@
 /*
 " --------------------------------------------------
-"   FileName: ndoo_prep.coffee
+"   FileName: ndoo_prep.ls
 "       Desc: ndoo.js前置文件 for lite
 "     Author: chenglifu
 "    Version: v1.0
@@ -63,6 +63,12 @@
   };
   _n.trigger = function(eventName){
     return _n.hook(eventName);
+  };
+  _n.off = function(eventName){
+    if (_n._hookData.hasOwnProperty(eventName)) {
+      delete _n._hookData[eventName];
+    }
+    return true;
   };
   /**
    * 变量存储名称空间

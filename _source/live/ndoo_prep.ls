@@ -56,7 +56,6 @@ _n.delayRun = (level, req, fn) !->
 _n._hookData = {}
 
 _n.hook = (name, call, isOverwrite) ->
-
   if call and call.apply
     return false if @_hookData[name] and not isOverwrite
     @_hookData[name] = call
@@ -73,6 +72,11 @@ _n.on = (eventName, callback) ->
 
 _n.trigger = (eventName) ->
   _n.hook eventName
+
+_n.off = (eventName) ->
+  if _n._hookData.hasOwnProperty eventName
+    delete _n._hookData[eventName]
+  true
 
 /**
  * 变量存储名称空间
