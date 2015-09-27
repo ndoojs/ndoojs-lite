@@ -91,6 +91,31 @@ _n.app = (name, app) ->
 
 $.extend _n,
   /**
+   * page id
+   *
+   * @name pageId
+   * @memberof ndoo
+   * @type {string}
+   */
+  pageId: ''
+  /**
+   * initPageId 初始化 pageId
+   *
+   * @private
+   * @name initPageId
+   * @memberof ndoo
+   */
+  initPageId: (id) !->
+    if @pageId
+      return
+
+    if typeof document isnt 'undefined'
+      if el = document.getElementById id || \scriptArea
+        @pageId = el.getAttribute('data-page-id') || ''
+
+    if not @pageId and id
+      @pageId = id
+  /**
    * 获取唯一key
    *
    * @method
@@ -105,7 +130,7 @@ $.extend _n,
 
   ###初始化###
   # {{{
-  init: ->
+  init: (id) ->
     # {{{
     _func._stateCallback = (state, pageid, token, call) ->
       if not call and typeof token is 'function'
@@ -176,9 +201,6 @@ $.extend _n,
     # _entry {{{
     _entry = ->
 
-      ###页面标识###
-      _n.pageId = $('#scriptArea').data 'pageId'
-
       unless _n.commonRun
         _n.common()
       # console.log "run: #{_n.pageId}"
@@ -207,6 +229,9 @@ $.extend _n,
 
       return
     # }}}
+
+    @initPageId id
+
     _n.hook 'commonCall', ->
       _stateChange 'common'
 

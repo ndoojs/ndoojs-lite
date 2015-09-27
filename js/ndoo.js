@@ -89,6 +89,35 @@
   };
   $.extend(_n, {
     /**
+     * page id
+     *
+     * @name pageId
+     * @memberof ndoo
+     * @type {string}
+     */
+    pageId: ''
+    /**
+     * initPageId 初始化 pageId
+     *
+     * @private
+     * @name initPageId
+     * @memberof ndoo
+     */,
+    initPageId: function(id){
+      var el;
+      if (this.pageId) {
+        return;
+      }
+      if (typeof document !== 'undefined') {
+        if (el = document.getElementById(id || 'scriptArea')) {
+          this.pageId = el.getAttribute('data-page-id') || '';
+        }
+      }
+      if (!this.pageId && id) {
+        this.pageId = id;
+      }
+    }
+    /**
      * 获取唯一key
      *
      * @method
@@ -96,7 +125,7 @@
      * @memberof ndoo
      * @param {string} prefix
      * @return {number}
-     */
+     */,
     getPk: function(){
       var _pk;
       _pk = +new Date();
@@ -105,7 +134,7 @@
         return prefix + (++_pk);
       };
     }(),
-    init: function(){
+    init: function(id){
       var _stateChange, _entry;
       _func._stateCallback = function(state, pageid, token, call){
         var ref$, storKey, callback;
@@ -176,7 +205,6 @@
       };
       _entry = function(){
         var pageIdMatched, controllerId, actionId, rawParams, controller, actionName;
-        _n.pageId = $('#scriptArea').data('pageId');
         if (!_n.commonRun) {
           _n.common();
         }
@@ -212,6 +240,7 @@
         }
         _stateChange('load');
       };
+      this.initPageId(id);
       _n.hook('commonCall', function(){
         return _stateChange('common');
       });
