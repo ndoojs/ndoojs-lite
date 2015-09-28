@@ -135,76 +135,9 @@
       };
     }(),
     init: function(id){
-      var _stateChange, _entry;
-      _func._stateCallback = function(state, pageid, token, call){
-        var ref$, storKey, callback;
-        if (!call && typeof token === 'function') {
-          ref$ = ["token_" + _n.getPK(), token], token = ref$[0], call = ref$[1];
-        }
-        if (_func.isUseTurbolinks() || state === 'common' || state === 'load') {
-          storKey = '';
-          switch (state) {
-          case 'common':
-            storKey = 'pageCommonCall';
-            break;
-          case 'load':
-            storKey = 'pageLoadCall';
-            break;
-          }
-          callback = _stor(storKey) || {};
-          callback[pageid] || (callback[pageid] = {});
-          callback[pageid][token] = call;
-          return _stor(storKey, callback, true);
-        }
-      };
-      (function(){
-        var i$, ref$, len$, item, eventName, results$ = [];
-        for (i$ = 0, len$ = (ref$ = ['load', 'common']).length; i$ < len$; ++i$) {
-          item = ref$[i$];
-          eventName = item.replace(/^([a-z]{1})/, fn$);
-          _func["addPage" + eventName + "Call"] = new Function('token', 'call', "this._stateCallback('" + item + "', ndoo.pageId, token, call);");
-          results$.push(_func["add" + eventName + "Call"] = new Function('token', 'call', "if (call) {\n  this._stateCallback('" + item + "', '_global', token, call);\n}"));
-        }
-        return results$;
-        function fn$(char){
-          return char.toUpperCase();
-        }
-      })();
-      _stateChange = function(state){
-        var callback, globalcall, key, call, pagecall;
-        callback = false;
-        switch (state) {
-        case 'common':
-          callback = _stor('pageCommonCall');
-          break;
-        case 'load':
-          callback = _stor('pageLoadCall');
-          break;
-        }
-        if (!callback) {
-          return;
-        }
-        if (callback && callback['_global']) {
-          globalcall = callback['_global'];
-          for (key in globalcall) {
-            call = globalcall[key];
-            if (call) {
-              call();
-            }
-          }
-        }
-        if (callback && callback[_n.pageId]) {
-          pagecall = callback[_n.pageId];
-          for (key in pagecall) {
-            call = pagecall[key];
-            if (call) {
-              call();
-            }
-          }
-        }
-      };
+      var _entry;
       _entry = function(){
-        var pageIdMatched, controllerId, actionId, rawParams, controller, actionName;
+        var pageIdMatched, controllerId, actionId, rawParams, controller, actionName, key$;
         if (!_n.commonRun) {
           _n.common();
         }
@@ -227,47 +160,25 @@
             }
           }
           if (actionName) {
-            if (controller[actionName + 'Before']) {
-              controller[actionName + 'Before'](rawParams);
+            if (typeof controller[key$ = actionName + 'Before'] == 'function') {
+              controller[key$](rawParams);
             }
-            if (controller[actionName + 'Action']) {
-              controller[actionName + 'Action'](rawParams);
+            if (typeof controller[key$ = actionName + 'Action'] == 'function') {
+              controller[key$](rawParams);
             }
-            if (controller[actionName + 'After']) {
-              controller[actionName + 'After'](rawParams);
+            if (typeof controller[key$ = actionName + 'After'] == 'function') {
+              controller[key$](rawParams);
             }
           }
         }
-        _stateChange('load');
       };
       this.initPageId(id);
-      _n.hook('commonCall', function(){
-        return _stateChange('common');
-      });
       this.delayRun(this.DELAY_DOM, _entry);
       this._delayRunHandle();
     },
     common: function(){
-      _n.hook('commonCall');
       this.commonRun = true;
     },
-    commonRun: false,
-    initTpl: function(){
-      var $code, text, e;
-      $code = $('#tplCode');
-      if ($code.length) {
-        text = $code.get(0).text.replace(/^\s*|\s*$/g, '');
-        if (text !== '') {
-          try {
-            $(text).appendTo('#tplArea');
-          } catch (e$) {
-            e = e$;
-            return false;
-          }
-        }
-        return true;
-      }
-      return false;
-    }
+    commonRun: false
   });
 }).call(this);

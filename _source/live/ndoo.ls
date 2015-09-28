@@ -11,15 +11,13 @@
 
 "use strict"
 
-$        = @[\jQuery] or @[\Zepto]
+$ = @[\jQuery] or @[\Zepto]
 
 @N = @ndoo ||= {}
 _n = @ndoo
 
 _vars    = _n.vars
 _func    = _n.func
-
-
 
 # delay modules {{{
 # 处理暂存函数
@@ -131,79 +129,11 @@ $.extend _n,
   ###初始化###
   # {{{
   init: (id) ->
-    # {{{
-    _func._stateCallback = (state, pageid, token, call) ->
-      if not call and typeof token is 'function'
-        [token, call] = ["token_#{_n.getPK()}", token]
-      if _func.isUseTurbolinks() or state is 'common' or state is 'load'
-        storKey = ''
-        switch state
-          when 'common'
-            storKey = 'pageCommonCall'
-            break
-          when 'load'
-            storKey = 'pageLoadCall'
-            break
-
-        callback = _stor(storKey) or {}
-        callback[pageid] ||= {}
-        callback[pageid][token] = call
-
-        _stor storKey, callback, true
-
-    do ->
-      ### state function generate ###
-      for item in ['load', 'common']
-        eventName = item.replace /^([a-z]{1})/, (char) -> char.toUpperCase()
-        _func["addPage#{eventName}Call"] = new Function 'token', 'call', """
-          this._stateCallback('#{item}', ndoo.pageId, token, call);
-        """
-        _func["add#{eventName}Call"] = new Function 'token', 'call', """
-          if (call) {
-            this._stateCallback('#{item}', '_global', token, call);
-          }
-        """
-      ###
-      # _func.addPageLoad             ([token,] call)
-      # _func.addLoadCall             (token, call)
-      #
-      # _func.addPageCommonCall       ([token,] call)
-      # _func.addCommonCall           (token, call)
-      ###
-
-    # }}}
-    # _stateChange {{{
-    _stateChange = (state)->
-      callback = false
-
-      switch state
-        when 'common'
-          callback = _stor 'pageCommonCall'
-          break
-        when 'load'
-          callback = _stor 'pageLoadCall'
-          break
-      unless callback
-        return
-
-      if callback && callback['_global']
-        globalcall = callback['_global']
-        for key, call of globalcall
-          call() if call
-
-      if callback && callback[_n.pageId]
-        pagecall = callback[_n.pageId]
-        for key, call of pagecall
-          call() if call
-
-      return
-    # }}}
     # _entry {{{
     _entry = ->
-
       unless _n.commonRun
         _n.common()
-      # console.log "run: #{_n.pageId}"
+
       if _n.pageId
         if pageIdMatched = _n.pageId.match /([^/]+)(?:\/?)([^?#]*)(.*)/
           controllerId = pageIdMatched[1]
@@ -221,19 +151,14 @@ $.extend _n,
           controller.init?()
 
         if actionName
-          controller[actionName+'Before'](rawParams) if controller[actionName+'Before']
-          controller[actionName+'Action'](rawParams) if controller[actionName+'Action']
-          controller[actionName+'After'](rawParams) if controller[actionName+'After']
-
-      _stateChange 'load'
+          controller[actionName+\Before]?(rawParams)
+          controller[actionName+'Action']?(rawParams)
+          controller[actionName+'After']?(rawParams)
 
       return
     # }}}
 
     @initPageId id
-
-    _n.hook 'commonCall', ->
-      _stateChange 'common'
 
     @delayRun @DELAY_DOM, _entry
     ###延迟执行DOMLOAD###
@@ -244,29 +169,10 @@ $.extend _n,
   # }}}
   ###公共调用###
   # {{{
-  common: ->
-    ###init tpl###
-    #@initTpl()
-    _n.hook('commonCall')
+  common: !->
     @commonRun = true
 
-    return
   commonRun: false
-  # }}}
-  ###初始化Dialog模板 initTpl###
-  # {{{
-  initTpl: ->
-    $code = $ '#tplCode'
-    if $code.length
-      text = $code.get( 0 ).text.replace( /^\s*|\s*$/g, '' )
-      if text isnt ''
-        try
-          $(text).appendTo '#tplArea'
-        catch e
-          return false
-      return true
-
-    false
   # }}}
 
 # vim: ts=2 sts=2 sw=2 fdm=marker et
