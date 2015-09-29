@@ -16,50 +16,6 @@
   _n = this.ndoo;
   _vars = _n.vars;
   _func = _n.func;
-  _n._delayRunHandle = function(){
-    var i$, ref$, len$, fn;
-    if (this._delayArr[0].length) {
-      for (i$ = 0, len$ = (ref$ = this._delayArr[0]).length; i$ < len$; ++i$) {
-        fn = ref$[i$];
-        fn[1]();
-      }
-      if (this._isDebug) {
-        this._delayArr[0].length = 0;
-      }
-    }
-    if (this._delayArr[1].length || this._delayArr[2].length) {
-      $(function(){
-        var fns, i$, len$, fn;
-        fns = _n._delayArr[1];
-        for (i$ = 0, len$ = fns.length; i$ < len$; ++i$) {
-          fn = fns[i$];
-          fn[1]();
-        }
-        fns = _n._delayArr[2];
-        for (i$ = 0, len$ = fns.length; i$ < len$; ++i$) {
-          fn = fns[i$];
-          fn[1]();
-        }
-        if (_n._isDebug) {
-          _n._delayArr[1].length = 0;
-          fns.length = 0;
-        }
-      });
-    }
-    if (this._delayArr[3].length) {
-      $(window).on('load', function(){
-        var fns, i$, len$, fn;
-        fns = _n._delayArr[3];
-        for (i$ = 0, len$ = fns.length; i$ < len$; ++i$) {
-          fn = fns[i$];
-          fn[1]();
-        }
-        if (_n._isDebug) {
-          fns.length = 0;
-        }
-      });
-    }
-  };
   _n.storage = function(key, value, option){
     var destroy, rewrite, data;
     destroy = option & _n.storage.DESTROY;
@@ -134,7 +90,10 @@
         return prefix + (++_pk);
       };
     }(),
-    init: function(id){
+    common: function(){
+      return this.commonRun = true;
+    },
+    dispatch: function(){
       var _entry;
       _entry = function(){
         var pageIdMatched, controllerId, actionId, rawParams, controller, actionName, key$;
@@ -172,13 +131,35 @@
           }
         }
       };
+      return _n.on(this.DELAY_DOM, _entry);
+    },
+    triggerPageStatus: function(){
+      var this$ = this;
+      this.trigger(this.DELAY_FAST);
+      if (!this._isDebug) {
+        this.off(this.DELAY_FAST);
+      }
+      $(function(){
+        this$.trigger(this$.DELAY_DOM);
+        if (!this$._isDebug) {
+          this$.off(this$.DELAY_DOM);
+        }
+        this$.trigger(this$.DELAY_DOMORLOAD);
+        if (!this$._isDebug) {
+          return this$.off(this$.DELAY_DOMORLOAD);
+        }
+      });
+      $(window).on('load', function(){
+        this$.trigger(this$.DELAY_LOAD);
+        if (!this$._isDebug) {
+          return this$.off(this$.DELAY_LOAD);
+        }
+      });
+    },
+    init: function(id){
       this.initPageId(id);
-      this.delayRun(this.DELAY_DOM, _entry);
-      this._delayRunHandle();
-    },
-    common: function(){
-      this.commonRun = true;
-    },
-    commonRun: false
+      this.dispatch();
+      this.triggerPageStatus();
+    }
   });
 }).call(this);

@@ -19,24 +19,6 @@ _n = @ndoo
 _vars    = _n.vars
 _func    = _n.func
 
-# delay modules {{{
-# 处理暂存函数
-_n.triggerPageStatus = !->
-  @trigger @DELAY_FAST
-  @off @DELAY_FAST unless @_isDebug
-  $ =>
-    @trigger @DELAY_DOM
-    @off @DELAY_DOM unless @_isDebug
-    @trigger @DELAY_DOMORLOAD
-    @off @DELAY_DOMORLOAD unless @_isDebug
-
-  $(window).on 'load', =>
-    @trigger @DELAY_LOAD
-    @off @DELAY_LOAD unless @_isDebug
-
-  return
-# }}}
-
 ### storage module {{{ ###
 _n.storage = (key, value, option) ->
   destroy = option .&. _n.storage.DESTROY
@@ -110,6 +92,9 @@ $.extend _n,
     _pk = +new Date!
     (prefix='')-> prefix+(++_pk)
 
+  common: ->
+    @commonRun = true
+
   dispatch: ->
     _entry = !->
       unless _n.commonRun
@@ -138,6 +123,23 @@ $.extend _n,
 
     _n.on @DELAY_DOM, _entry
 
+  # delay modules {{{
+  # 处理暂存函数
+  triggerPageStatus: !->
+    @trigger @DELAY_FAST
+    @off @DELAY_FAST unless @_isDebug
+
+    $ ~>
+      @trigger @DELAY_DOM
+      @off @DELAY_DOM unless @_isDebug
+      @trigger @DELAY_DOMORLOAD
+      @off @DELAY_DOMORLOAD unless @_isDebug
+
+    $(window).on 'load', ~>
+      @trigger @DELAY_LOAD
+      @off @DELAY_LOAD unless @_isDebug
+  # }}}
+
   ###初始化###
   # {{{
   init: (id) !->
@@ -145,7 +147,6 @@ $.extend _n,
     @initPageId id
     @dispatch!
     @triggerPageStatus!
-
   # }}}
 
 # vim: ts=2 sts=2 sw=2 fdm=marker et
