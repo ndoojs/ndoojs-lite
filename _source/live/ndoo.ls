@@ -42,7 +42,7 @@ _n._delayRunHandle = ->
       return
 
   if @_delayArr[3].length
-    $(window).bind 'load', ->
+    $(window).on 'load', ->
       fns = _n._delayArr[3]
       for fn in fns
         fn[1]()

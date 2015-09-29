@@ -51,32 +51,36 @@ _n.delayRun = (level, req, fn) !->
   @_delayArr[level].push [req, fn]
 # }}}
 
-# hook modules {{{
-# hook
-_n._hookData = {}
 
-_n.hook = (name, call, isOverwrite) ->
-  if call and call.apply
-    return false if @_hookData[name] and not isOverwrite
-    @_hookData[name] = call
-    true
-  else
-    call = @_hookData[name]
-    args = [].concat(call)
-    if call
-      call ...args
-# }}}
+
+_n._eventData = {}
 
 _n.on = (eventName, callback) ->
-  _n.hook eventName, callback
+  if _n._eventData.hasOwnProperty eventName
+    _n._eventData[eventName].push callback
+  else
+    _n._eventData[eventName] = [callback]
 
-_n.trigger = (eventName) ->
-  _n.hook eventName
+_n.trigger = (eventName, ...data) !->
+  if _n._eventData.hasOwnProperty eventName
+    callbacks = _n._eventData[eventName]
+    for call in callbacks
+      call ...data
 
 _n.off = (eventName) ->
-  if _n._hookData.hasOwnProperty eventName
-    delete _n._hookData[eventName]
+  if _n._eventData.hasOwnProperty eventName
+    delete _n._eventData[eventName]
   true
+
+# hook modules {{{
+_n.hook = (name, call, isOverwrite) ->
+  if call and call.apply
+    return false if @_eventData[name] and not isOverwrite
+    _n._eventData[name] = call
+    true
+  else
+    _n.trigger.apply _n, [].concat(name, call or [])
+# }}}
 
 /**
  * 变量存储名称空间

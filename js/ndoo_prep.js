@@ -10,7 +10,7 @@
 (function(){
   /* Notice: 不要修改本文件，本文件由ndoo_prep.ls自动生成 */
   "use strict";
-  var _n;
+  var _n, slice$ = [].slice;
   if (this.ndoo) {
     return;
   }
@@ -41,34 +41,41 @@
     }
     this._delayArr[level].push([req, fn]);
   };
-  _n._hookData = {};
-  _n.hook = function(name, call, isOverwrite){
-    var args;
-    if (call && call.apply) {
-      if (this._hookData[name] && !isOverwrite) {
-        return false;
-      }
-      this._hookData[name] = call;
-      return true;
-    } else {
-      call = this._hookData[name];
-      args = [].concat(call);
-      if (call) {
-        return call.apply(null, args);
-      }
-    }
-  };
+  _n._eventData = {};
   _n.on = function(eventName, callback){
-    return _n.hook(eventName, callback);
+    if (_n._eventData.hasOwnProperty(eventName)) {
+      return _n._eventData[eventName].push(callback);
+    } else {
+      return _n._eventData[eventName] = [callback];
+    }
   };
   _n.trigger = function(eventName){
-    return _n.hook(eventName);
+    var data, callbacks, i$, len$, call;
+    data = slice$.call(arguments, 1);
+    if (_n._eventData.hasOwnProperty(eventName)) {
+      callbacks = _n._eventData[eventName];
+      for (i$ = 0, len$ = callbacks.length; i$ < len$; ++i$) {
+        call = callbacks[i$];
+        call.apply(null, data);
+      }
+    }
   };
   _n.off = function(eventName){
-    if (_n._hookData.hasOwnProperty(eventName)) {
-      delete _n._hookData[eventName];
+    if (_n._eventData.hasOwnProperty(eventName)) {
+      delete _n._eventData[eventName];
     }
     return true;
+  };
+  _n.hook = function(name, call, isOverwrite){
+    if (call && call.apply) {
+      if (this._eventData[name] && !isOverwrite) {
+        return false;
+      }
+      _n._eventData[name] = call;
+      return true;
+    } else {
+      return _n.trigger.apply(_n, [].concat(name, call || []));
+    }
   };
   /**
    * 变量存储名称空间

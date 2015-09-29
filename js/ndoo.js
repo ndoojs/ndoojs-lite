@@ -47,7 +47,7 @@
       });
     }
     if (this._delayArr[3].length) {
-      $(window).bind('load', function(){
+      $(window).on('load', function(){
         var fns, i$, len$, fn;
         fns = _n._delayArr[3];
         for (i$ = 0, len$ = fns.length; i$ < len$; ++i$) {
