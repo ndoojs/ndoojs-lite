@@ -59,7 +59,12 @@ getCompileCmdAndFileName = (file, ext) ->
     cmd = "coffee --no-header -bco #jsOutputDir #file"
   case '.ls' then
     compileFileName = "#jsOutputDir/#{filename}.js"
-    cmd = "lsc --no-header -co #jsOutputDir #file"
+    if filename.indexOf \all < -1
+      cmd =
+        "lsc --no-header -co #jsOutputDir #file",
+        "cat #baseDir/js/ndoo_prep.js #baseDir/js/ndoo.js > #baseDir/js/ndoo_all.js"
+    else
+      cmd = "lsc --no-header -co #jsOutputDir #file"
   default
     compileFileName = cmd = ''
 
