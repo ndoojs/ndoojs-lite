@@ -33,26 +33,20 @@ _n = @ndoo
 _n._isDebug        = 0
 
 # delay modules {{{
-_n.DELAY_FAST       = 0
-_n.DELAY_DOM        = 1
-_n.DELAY_DOMORLOAD  = 2
-_n.DELAY_LOAD       = 3
+_n.DELAY_FAST       = \STATUS:DELAY_FAST
+_n.DELAY_DOM        = \STATUS:DELAY_DOM
+_n.DELAY_DOMORLOAD  = \STATUS:DELAY_DOMORLOAD
+_n.DELAY_LOAD       = \STATUS:DELAY_LOAD
 
 # 暂存数组
 _n._delayArr = [[], [], [], []]
 
 # 暂存方法
-_n.delayRun = (level, req, fn) !->
-  fn ||= [req, req=[]][0]
-
-  if typeof req == 'string'
-    req = req.split ','
-
-  @_delayArr[level].push [req, fn]
+_n.delayRun = (level, fn) !->
+  _n.on level, fn
 # }}}
 
-
-
+/* event module {{{*/
 _n._eventData = {}
 
 _n.on = (eventName, callback) ->
@@ -71,8 +65,9 @@ _n.off = (eventName) ->
   if _n._eventData.hasOwnProperty eventName
     delete _n._eventData[eventName]
   true
+/* }}} */
 
-# hook modules {{{
+/* hook modules {{{ */
 _n.hook = (name, call, isOverwrite) ->
   if call and call.apply
     return false if @_eventData[name] and not isOverwrite
@@ -80,7 +75,7 @@ _n.hook = (name, call, isOverwrite) ->
     true
   else
     _n.trigger.apply _n, [].concat(name, call or [])
-# }}}
+/* }}} */
 
 /**
  * 变量存储名称空间

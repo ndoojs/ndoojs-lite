@@ -29,18 +29,15 @@
    * @type {boolean}
    */
   _n._isDebug = 0;
-  _n.DELAY_FAST = 0;
-  _n.DELAY_DOM = 1;
-  _n.DELAY_DOMORLOAD = 2;
-  _n.DELAY_LOAD = 3;
+  _n.DELAY_FAST = 'STATUS:DELAY_FAST';
+  _n.DELAY_DOM = 'STATUS:DELAY_DOM';
+  _n.DELAY_DOMORLOAD = 'STATUS:DELAY_DOMORLOAD';
+  _n.DELAY_LOAD = 'STATUS:DELAY_LOAD';
   _n._delayArr = [[], [], [], []];
-  _n.delayRun = function(level, req, fn){
-    fn || (fn = [req, req = []][0]);
-    if (typeof req === 'string') {
-      req = req.split(',');
-    }
-    this._delayArr[level].push([req, fn]);
+  _n.delayRun = function(level, fn){
+    _n.on(level, fn);
   };
+  /* event module {{{*/
   _n._eventData = {};
   _n.on = function(eventName, callback){
     if (_n._eventData.hasOwnProperty(eventName)) {
@@ -66,6 +63,8 @@
     }
     return true;
   };
+  /* }}} */
+  /* hook modules {{{ */
   _n.hook = function(name, call, isOverwrite){
     if (call && call.apply) {
       if (this._eventData[name] && !isOverwrite) {
@@ -77,6 +76,7 @@
       return _n.trigger.apply(_n, [].concat(name, call || []));
     }
   };
+  /* }}} */
   /**
    * 变量存储名称空间
    *

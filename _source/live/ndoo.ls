@@ -21,34 +21,18 @@ _func    = _n.func
 
 # delay modules {{{
 # 处理暂存函数
-_n._delayRunHandle = ->
-  if @_delayArr[0].length
-    for fn in @_delayArr[0]
-      fn[1]()
-    @_delayArr[0].length = 0 if @_isDebug
+_n.triggerPageStatus = !->
+  @trigger @DELAY_FAST
+  @off @DELAY_FAST unless @_isDebug
+  $ =>
+    @trigger @DELAY_DOM
+    @off @DELAY_DOM unless @_isDebug
+    @trigger @DELAY_DOMORLOAD
+    @off @DELAY_DOMORLOAD unless @_isDebug
 
-  if @_delayArr[1].length || @_delayArr[2].length
-    $ ->
-      fns = _n._delayArr[1]
-      for fn in fns
-        fn[1]()
-      fns = _n._delayArr[2]
-      for fn in fns
-        fn[1]()
-      if _n._isDebug
-        _n._delayArr[1].length = 0
-        fns.length = 0
-
-      return
-
-  if @_delayArr[3].length
-    $(window).on 'load', ->
-      fns = _n._delayArr[3]
-      for fn in fns
-        fn[1]()
-      fns.length = 0 if _n._isDebug
-
-      return
+  $(window).on 'load', =>
+    @trigger @DELAY_LOAD
+    @off @DELAY_LOAD unless @_isDebug
 
   return
 # }}}
@@ -126,11 +110,8 @@ $.extend _n,
     _pk = +new Date!
     (prefix='')-> prefix+(++_pk)
 
-  ###初始化###
-  # {{{
-  init: (id) ->
-    # _entry {{{
-    _entry = ->
+  dispatch: ->
+    _entry = !->
       unless _n.commonRun
         _n.common()
 
@@ -155,24 +136,16 @@ $.extend _n,
           controller[actionName+'Action']?(rawParams)
           controller[actionName+'After']?(rawParams)
 
-      return
-    # }}}
+    _n.on @DELAY_DOM, _entry
 
-    @initPageId id
-
-    @delayRun @DELAY_DOM, _entry
-    ###延迟执行DOMLOAD###
-    @_delayRunHandle()
-
-    return
-
-  # }}}
-  ###公共调用###
+  ###初始化###
   # {{{
-  common: !->
-    @commonRun = true
+  init: (id) !->
+    # _entry {{{
+    @initPageId id
+    @dispatch!
+    @triggerPageStatus!
 
-  commonRun: false
   # }}}
 
 # vim: ts=2 sts=2 sw=2 fdm=marker et
