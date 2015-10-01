@@ -1,0 +1,17 @@
+extends shared/_layout
+
+block pageTitle
+  title index
+  include shared/_variable
+
+block pageContent
+  p index
+
+block pageScript
+  #scriptArea.Ldn(data-page-id="home/index")
+  script(src="#{libPath}/jquery-2.1.4.min.js")
+  script(src="#{ndoojsPath}/ndoo_all.js")
+  script(src="#{jsPath}/app.js")
+  script
+    :coffee
+      ndoo.init()
