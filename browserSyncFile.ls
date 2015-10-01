@@ -12,7 +12,6 @@ jsOutputDir = "#baseDir/js"
 docsDir = "#baseDir/docs"
 exampleDir = "#docsDir/example"
 
-
 reloadWatchFile = ''
   # "#outputDir/*.html"
   # "#jsOutputDir/*.js"
@@ -21,10 +20,13 @@ reloadWatchFile = ''
 compileWatchFile =
   "_source/coffee/*.coffee"
   "_source/live/*.ls"
+  "docs/**/*.jade"
+  "docs/**/*.ls"
 
 autoCompileFile = false
 #autoCompileFile = true
 # }}}
+
 # getTimeToken {{{
 getTimeToken = ->
   currDate = new Date()
@@ -39,6 +41,7 @@ getTimeToken = ->
     seconds = "0#seconds"
   "#hours:#minutes:#seconds"
 # }}}
+
 # compileTask {{{
 getCompileCmdAndFileName = (file, ext) ->
   filename = path.basename file, ext
@@ -49,8 +52,12 @@ getCompileCmdAndFileName = (file, ext) ->
 
   switch ext
   case '.jade' then
-    compileFileName = "#outputDir/#{filename}.html"
-    cmd = "jade -Po #outputDir #file"
+    if path.normalize(relativePath)  is path.normalize("#exampleDir/_source/jade")
+      compileFileName = "#{exampleDir}/#{filename}.html"
+      cmd = "jade -Po #exampleDir #file"
+    else
+      compileFileName = "#outputDir/#{filename}.html"
+      cmd = "jade -Po #outputDir #file"
   case '.sass' then
     compileFileName = "#cssOutputDir/#{filename}.css"
     cmd = "sass --sourcemap=none --style compact #file|sed '/^@charset/d'>#compileFileName"
@@ -58,13 +65,17 @@ getCompileCmdAndFileName = (file, ext) ->
     compileFileName = "#jsOutputDir/#{filename}.js"
     cmd = "coffee --no-header -bco #jsOutputDir #file"
   case '.ls' then
-    compileFileName = "#jsOutputDir/#{filename}.js"
-    if filename.indexOf \all < -1
-      cmd =
-        "lsc --no-header -co #jsOutputDir #file",
-        "cat #baseDir/js/ndoo_prep.js #baseDir/js/ndoo.js > #baseDir/js/ndoo_all.js"
+    if path.normalize(relativePath) is path.normalize("#exampleDir/_source/live")
+      compileFileName = "#exampleDir/js/#{filename}.js"
+      cmd = "lsc --no-header -co #exampleDir/js #file"
     else
-      cmd = "lsc --no-header -co #jsOutputDir #file"
+      compileFileName = "#jsOutputDir/#{filename}.js"
+      if filename.indexOf \all < -1
+        cmd =
+          "lsc --no-header -co #jsOutputDir #file",
+          "cat #baseDir/js/ndoo_prep.js #baseDir/js/ndoo.js > #baseDir/js/ndoo_all.js"
+      else
+        cmd = "lsc --no-header -co #jsOutputDir #file"
   default
     compileFileName = cmd = ''
 
@@ -117,6 +128,7 @@ compileCallback = (file) !->
   default
     console.log 'unknown file type.'
 # }}}
+
 # browserSync {{{
 browserSync.init do
   server:
