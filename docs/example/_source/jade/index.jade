@@ -5,12 +5,20 @@ block pageTitle
   include shared/_variable
 
 block pageContent
-  p index
+  p#container
 
 block pageScript
   #scriptArea.Ldn(data-page-id="home/index")
   script(src="#{libPath}/jquery-2.1.4.min.js")
   script(src="#{ndoojsPath}/ndoo_all.js")
-  script(src="#{jsPath}/app.js")
-  script.
-    ndoo.init()
+  script
+    :coffee
+      $  = @['jQuery'] || @['Zepto']
+
+      _n = @ndoo
+
+      _n.app 'home',
+        indexAction: ->
+          $('#container').html 'hello ndoojs!'
+
+      _n.init()

@@ -16,8 +16,19 @@ ndoojs lite是[ndoojs](http://github.com/ndoojs/ndoojs)的前身，最初被应�
     <div id="scriptArea" data-page-id="home/index" class="Ldn"></div>
     <script src="../../lib/jquery-2.1.4.min.js"></script>
     <script src="../../js/ndoo_all.js"></script>
-    <script src="js/app.js"></script>
-    <script>ndoo.init()</script>
+    <script>
+      (function() {
+        var $, _n;
+        $ = this['jQuery'] || this['Zepto'];
+        _n = this.ndoo;
+        _n.app('home', {
+          indexAction: function() {
+            return $('#container').html('hello ndoojs!');
+          }
+        });
+        _n.init();
+      }).call(this);
+    </script>
   </body>
 </html>
 ```
