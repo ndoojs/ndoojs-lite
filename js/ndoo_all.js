@@ -29,10 +29,10 @@
    * @type {boolean}
    */
   _n._isDebug = 0;
-  _n.DELAY_FAST = 'STATUS:DELAY_FAST';
-  _n.DELAY_DOM = 'STATUS:DELAY_DOM';
-  _n.DELAY_DOMORLOAD = 'STATUS:DELAY_DOMORLOAD';
-  _n.DELAY_LOAD = 'STATUS:DELAY_LOAD';
+  _n.PAGE_FAST = 'STATUS:PAGE_STATUS_FAST';
+  _n.PAGE_DOM = 'STATUS:PAGE_STATUS_DOM';
+  _n.PAGE_DOMORLOAD = 'STATUS:PAGE_STATUS_DOMORLOAD';
+  _n.PAGE_LOAD = 'STATUS:PAGE_STATUS_LOAD';
   _n._delayArr = [[], [], [], []];
   _n.delayRun = function(level, fn){
     _n.on(level, fn);
@@ -237,28 +237,32 @@
           }
         }
       };
-      return _n.on(this.DELAY_DOM, _entry);
+      return _n.on(this.PAGE_DOM, _entry);
     },
     triggerPageStatus: function(){
       var this$ = this;
-      this.trigger(this.DELAY_FAST);
+      this.trigger(this.PAGE_FAST);
       if (!this._isDebug) {
-        this.off(this.DELAY_FAST);
+        this.off(this.PAGE_FAST);
       }
       $(function(){
-        this$.trigger(this$.DELAY_DOM);
+        this$.trigger(this$.PAGE_DOMPREP);
         if (!this$._isDebug) {
-          this$.off(this$.DELAY_DOM);
+          this$.off(this$.PAGE_DOMPREP);
         }
-        this$.trigger(this$.DELAY_DOMORLOAD);
+        this$.trigger(this$.PAGE_DOM);
         if (!this$._isDebug) {
-          return this$.off(this$.DELAY_DOMORLOAD);
+          this$.off(this$.PAGE_DOM);
+        }
+        this$.trigger(this$.PAGE_DOMORLOAD);
+        if (!this$._isDebug) {
+          return this$.off(this$.PAGE_DOMORLOAD);
         }
       });
       $(window).on('load', function(){
-        this$.trigger(this$.DELAY_LOAD);
+        this$.trigger(this$.PAGE_LOAD);
         if (!this$._isDebug) {
-          return this$.off(this$.DELAY_LOAD);
+          return this$.off(this$.PAGE_LOAD);
         }
       });
     },

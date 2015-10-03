@@ -121,29 +121,32 @@ $.extend _n,
           controller[actionName+'Action']?(rawParams)
           controller[actionName+'After']?(rawParams)
 
-    _n.on @DELAY_DOM, _entry
+    _n.on @PAGE_DOM, _entry
 
   # delay modules {{{
   # 处理暂存函数
   triggerPageStatus: !->
-    @trigger @DELAY_FAST
-    @off @DELAY_FAST unless @_isDebug
+    @trigger @PAGE_FAST
+    @off @PAGE_FAST unless @_isDebug
 
     $ ~>
-      @trigger @DELAY_DOM
-      @off @DELAY_DOM unless @_isDebug
-      @trigger @DELAY_DOMORLOAD
-      @off @DELAY_DOMORLOAD unless @_isDebug
+      @trigger @PAGE_DOMPREP
+      @off @PAGE_DOMPREP unless @_isDebug
+
+      @trigger @PAGE_DOM
+      @off @PAGE_DOM unless @_isDebug
+
+      @trigger @PAGE_DOMORLOAD
+      @off @PAGE_DOMORLOAD unless @_isDebug
 
     $(window).on 'load', ~>
-      @trigger @DELAY_LOAD
-      @off @DELAY_LOAD unless @_isDebug
+      @trigger @PAGE_LOAD
+      @off @PAGE_LOAD unless @_isDebug
   # }}}
 
   ###初始化###
   # {{{
   init: (id) !->
-    # _entry {{{
     @initPageId id
     @dispatch!
     @triggerPageStatus!

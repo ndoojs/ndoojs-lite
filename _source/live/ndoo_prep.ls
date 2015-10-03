@@ -33,10 +33,10 @@ _n = @ndoo
 _n._isDebug        = 0
 
 # delay modules {{{
-_n.DELAY_FAST       = \STATUS:DELAY_FAST
-_n.DELAY_DOM        = \STATUS:DELAY_DOM
-_n.DELAY_DOMORLOAD  = \STATUS:DELAY_DOMORLOAD
-_n.DELAY_LOAD       = \STATUS:DELAY_LOAD
+_n.PAGE_FAST       = \STATUS:PAGE_STATUS_FAST
+_n.PAGE_DOM        = \STATUS:PAGE_STATUS_DOM
+_n.PAGE_DOMORLOAD  = \STATUS:PAGE_STATUS_DOMORLOAD
+_n.PAGE_LOAD       = \STATUS:PAGE_STATUS_LOAD
 
 # 暂存数组
 _n._delayArr = [[], [], [], []]
