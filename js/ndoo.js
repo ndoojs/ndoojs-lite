@@ -16,6 +16,27 @@
   _n = this.ndoo;
   _vars = _n.vars;
   _func = _n.func;
+  /* storage module {{{ */
+  /**
+   * 变量存储
+   *
+   * @method
+   * @name storage
+   * @memberof ndoo
+   * @param {string} key 存储键名
+   * @param {any} value 存储值
+   * @param {const} option 选项，覆盖或删除
+   * @example // alias _stor
+   * var _stor = ndoo.storage;
+   * // set abc vlaue 1
+   * _stor('abc', 1); // 1
+   * // set abc value 2 failed
+   * _stor('abc', 2); // false
+   * // set abc value 2
+   * _stor('abc', 2, _stor.REWRITE); // 2
+   * // delete abc
+   * _stor('abc', null, _stor.DESTROY); // true
+   */
   _n.storage = function(key, value, option){
     var destroy, rewrite, data;
     destroy = option & _n.storage.DESTROY;
@@ -38,11 +59,23 @@
   _n.storage.REWRITE = 1;
   _n.storage.DESTROY = 2;
   _stor = _n.storage;
+  /* }}} */
+  /* define app package {{{ */
+  /**
+   * 添加app实现
+   *
+   * @method
+   * @name app
+   * @memberof ndoo
+   * @param {string} namespace 名称空间
+   * @param {object} controller 控制器
+   */
   _n.app = function(name, app){
     var ref$;
     (ref$ = _n.app)[name] || (ref$[name] = {});
     $.extend(_n.app[name], app);
   };
+  /* }}} */
   $.extend(_n, {
     /**
      * page id
