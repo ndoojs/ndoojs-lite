@@ -14,13 +14,13 @@
 if @ndoo
   return
 
-@N = @ndoo ||= {}
-
 /**
  * ndoojs 全局名称空间，短名称N
  *
  * @namespace ndoo
  */
+@N = @ndoo ||= {}
+
 _n = @ndoo
 
 /**
@@ -38,14 +38,6 @@ _n.PAGE_DOMPREP    = \STATUS:PAGE_STATUS_DOMPREP
 _n.PAGE_DOM        = \STATUS:PAGE_STATUS_DOM
 _n.PAGE_DOMORLOAD  = \STATUS:PAGE_STATUS_DOMORLOAD
 _n.PAGE_LOAD       = \STATUS:PAGE_STATUS_LOAD
-
-# 暂存数组
-_n._delayArr = [[], [], [], []]
-
-# 暂存方法
-_n.delayRun = (level, fn) !->
-  _n.on level, fn
-# }}}
 
 /* event module {{{*/
 _n._eventData = {}
@@ -67,6 +59,12 @@ _n.off = (eventName) ->
     delete _n._eventData[eventName]
   true
 /* }}} */
+
+/* 暂存方法 */
+_n.delayRun = (level, fn) !->
+  _n.on level, fn
+/* }}} */
+
 
 /* hook modules {{{ */
 _n.hook = (name, call, isOverwrite) ->

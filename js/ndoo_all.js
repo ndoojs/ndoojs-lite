@@ -14,12 +14,12 @@
   if (this.ndoo) {
     return;
   }
-  this.N = this.ndoo || (this.ndoo = {});
   /**
    * ndoojs 全局名称空间，短名称N
    *
    * @namespace ndoo
    */
+  this.N = this.ndoo || (this.ndoo = {});
   _n = this.ndoo;
   /**
    * _isDebug 是否开启调试模式
@@ -34,10 +34,6 @@
   _n.PAGE_DOM = 'STATUS:PAGE_STATUS_DOM';
   _n.PAGE_DOMORLOAD = 'STATUS:PAGE_STATUS_DOMORLOAD';
   _n.PAGE_LOAD = 'STATUS:PAGE_STATUS_LOAD';
-  _n._delayArr = [[], [], [], []];
-  _n.delayRun = function(level, fn){
-    _n.on(level, fn);
-  };
   /* event module {{{*/
   _n._eventData = {};
   _n.on = function(eventName, callback){
@@ -63,6 +59,11 @@
       delete _n._eventData[eventName];
     }
     return true;
+  };
+  /* }}} */
+  /* 暂存方法 */
+  _n.delayRun = function(level, fn){
+    _n.on(level, fn);
   };
   /* }}} */
   /* hook modules {{{ */
