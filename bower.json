@@ -1,0 +1,22 @@
+{
+  "name": "ndoojs-lite",
+  "version": "1.0.0",
+  "description": "ndoojs lite version",
+  "main": "js/ndoo_all.js",
+  "keywords": [
+    "ndoojs",
+    "lite"
+  ],
+  "authors": [
+    "lcc"
+  ],
+  "license": "MIT",
+  "homepage": "github.com/ndoojs/ndoojs-lite",
+  "devDependencies": {
+    "jaguarjs-jsdoc": "https://github.com/davidshimjs/jaguarjs-jsdoc.git"
+  },
+  "dependencies": {
+    "zeptojs": "~1.1.6",
+    "jquery": "~2.1.4"
+  }
+}
