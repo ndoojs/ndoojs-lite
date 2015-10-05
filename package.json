@@ -1,0 +1,29 @@
+{
+  "name": "ndoojs-lite",
+  "version": "1.0.0",
+  "description": "ndoojs lite version",
+  "main": "js/ndoo_all.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "livescript": "^1.4.0"
+  },
+  "devDependencies": {
+    "livescript": "^1.4.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "jsdoc": "jsdoc -c jsdoc.conf js/*.js readme.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/ndoojs/ndoojs-lite.git"
+  },
+  "keywords": [
+    "ndoojs",
+    "lite"
+  ],
+  "author": "lcc",
+  "license": "MIT"
+}
