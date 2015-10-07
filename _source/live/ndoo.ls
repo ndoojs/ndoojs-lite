@@ -152,8 +152,7 @@ $.extend _n,
 
     _n.on @PAGE_DOM, _entry
 
-  # delay modules {{{
-  # 处理暂存函数
+  /* triggerPageStatus 处理暂存函数 {{{ */
   triggerPageStatus: !->
     @trigger @PAGE_FAST
     @off @PAGE_FAST unless @_isDebug
@@ -171,14 +170,21 @@ $.extend _n,
     $(window).on 'load', ~>
       @trigger @PAGE_LOAD
       @off @PAGE_LOAD unless @_isDebug
-  # }}}
+  /* }}} */
 
-  ###初始化###
-  # {{{
+  /* init 初始化 {{{ */
+  /**
+   * 初始化页面
+   *
+   * @method
+   * @name init
+   * @memberof ndoo
+   * @param {string} id DOM的ID或指定ID
+   */
   init: (id) !->
     @initPageId id
     @dispatch!
     @triggerPageStatus!
-  # }}}
+  /* }}} */
 
 # vim: ts=2 sts=2 sw=2 fdm=marker et

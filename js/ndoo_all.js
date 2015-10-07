@@ -325,7 +325,8 @@
         }
       };
       return _n.on(this.PAGE_DOM, _entry);
-    },
+    }
+    /* triggerPageStatus 处理暂存函数 {{{ */,
     triggerPageStatus: function(){
       var this$ = this;
       this.trigger(this.PAGE_FAST);
@@ -352,11 +353,22 @@
           return this$.off(this$.PAGE_LOAD);
         }
       });
-    },
+    }
+    /* }}} */
+    /* init 初始化 {{{ */
+    /**
+     * 初始化页面
+     *
+     * @method
+     * @name init
+     * @memberof ndoo
+     * @param {string} id DOM的ID或指定ID
+     */,
     init: function(id){
       this.initPageId(id);
       this.dispatch();
       this.triggerPageStatus();
     }
+    /* }}} */
   });
 }).call(this);
