@@ -36,6 +36,22 @@
   _n.PAGE_LOAD = 'STATUS:PAGE_STATUS_LOAD';
   /* event module {{{*/
   _n._eventData = {};
+  /**
+   * global on
+   *
+   * @method
+   * @name on
+   * @memberof ndoo
+   * @param {string} eventName 事件名称
+   * @param {string} callback 事件回调
+   * @example // ndoo alias _n
+   * var _n = ndoo;
+   * _n.on('testEvent', function(data, data2){
+   *   console.log(data);
+   *   console.log(data2);
+   * });
+   * _n.trigger('testEvent', 'testEvent', 'kkk');
+   */
   _n.on = function(eventName, callback){
     if (_n._eventData.hasOwnProperty(eventName)) {
       return _n._eventData[eventName].push(callback);
@@ -43,6 +59,15 @@
       return _n._eventData[eventName] = [callback];
     }
   };
+  /**
+   * global trigger
+   *
+   * @method
+   * @name trigger
+   * @memberof ndoo
+   * @param {string} eventName 事件名称
+   * @param {array} data 数据
+   */
   _n.trigger = function(eventName){
     var data, callbacks, i$, len$, call;
     data = slice$.call(arguments, 1);
@@ -54,6 +79,14 @@
       }
     }
   };
+  /**
+   * global off
+   *
+   * @method
+   * @name off
+   * @memberof ndoo
+   * @param {string} eventName 事件名称
+   */
   _n.off = function(eventName){
     if (_n._eventData.hasOwnProperty(eventName)) {
       delete _n._eventData[eventName];
@@ -62,11 +95,30 @@
   };
   /* }}} */
   /* 暂存方法 */
+  /**
+   * delayRun兼容方法，推荐使用on替代
+   *
+   * @method
+   * @name delayRun
+   * @memberof ndoo
+   * @param {string} level 事件名称
+   * @param {function} fn  回调函数
+   */
   _n.delayRun = function(level, fn){
     _n.on(level, fn);
   };
   /* }}} */
   /* hook modules {{{ */
+  /**
+   * hook兼容方法，推荐使用on/trigger替代
+   *
+   * @method
+   * @name hook
+   * @memberof ndoo
+   * @param {string}   name        名称
+   * @param {function} call        回调
+   * @param {boolean}  isOverwrite 是否覆盖
+   */
   _n.hook = function(name, call, isOverwrite){
     if (call && call.apply) {
       if (this._eventData[name] && !isOverwrite) {
