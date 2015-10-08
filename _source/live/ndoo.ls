@@ -73,10 +73,10 @@ _stor    = _n.storage
  * @method
  * @name app
  * @memberof ndoo
- * @param {string} namespace 名称空间
+ * @param {string} name 名称空间
  * @param {object} controller 控制器
  */
-_n.app = (name, app) ->
+_n.app = (name, controller) ->
   _n.app[name] ||= {}
   $.extend _n.app[name], app
   return

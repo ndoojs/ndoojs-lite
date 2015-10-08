@@ -67,10 +67,10 @@
    * @method
    * @name app
    * @memberof ndoo
-   * @param {string} namespace 名称空间
+   * @param {string} name 名称空间
    * @param {object} controller 控制器
    */
-  _n.app = function(name, app){
+  _n.app = function(name, controller){
     var ref$;
     (ref$ = _n.app)[name] || (ref$[name] = {});
     $.extend(_n.app[name], app);
