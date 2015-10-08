@@ -124,6 +124,7 @@ $.extend _n,
   common: ->
     @commonRun = true
 
+  /* dispatch {{{ */
   dispatch: ->
     _entry = !->
       unless _n.commonRun
@@ -151,8 +152,9 @@ $.extend _n,
           controller[actionName+'After']?(rawParams)
 
     _n.on @PAGE_DOM, _entry
+  /* }}} */
 
-  /* triggerPageStatus 处理暂存函数 {{{ */
+  /* triggerPageStatus 处理页面暂存状态 {{{ */
   triggerPageStatus: !->
     @trigger @PAGE_FAST
     @off @PAGE_FAST unless @_isDebug

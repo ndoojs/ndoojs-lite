@@ -285,7 +285,8 @@
     }(),
     common: function(){
       return this.commonRun = true;
-    },
+    }
+    /* dispatch {{{ */,
     dispatch: function(){
       var _entry;
       _entry = function(){
@@ -326,7 +327,8 @@
       };
       return _n.on(this.PAGE_DOM, _entry);
     }
-    /* triggerPageStatus 处理暂存函数 {{{ */,
+    /* }}} */
+    /* triggerPageStatus 处理页面暂存状态 {{{ */,
     triggerPageStatus: function(){
       var this$ = this;
       this.trigger(this.PAGE_FAST);
