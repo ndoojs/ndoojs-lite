@@ -41,7 +41,7 @@ ndoojs lite是[ndoojs](http://github.com/ndoojs/ndoojs)的前身，最初被应�
   - [ndoo.trigger](#event_trigger)
   - [ndoo.off](#event_off)
 - [util](#util)
-  - [ndoo.stroage](#ndoo_stroage)
+  - [ndoo.stroage](#ndoo_storage)
   - [ndoo.getPk](#ndoo_getpk)
 
 <a name="event"></a>
