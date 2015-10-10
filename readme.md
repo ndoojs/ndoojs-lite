@@ -37,14 +37,14 @@ ndoojs lite是[ndoojs](http://github.com/ndoojs/ndoojs)的前身，最初被应�
 
 # api 参考
 - [event](#event)
-  1. [ndoo.on](#event_on)
-  2. [ndoo.trigger](#event_trigger)
-  3. [ndoo.off](#event_off)
+  - [ndoo.on](#event_on)
+  - [ndoo.trigger](#event_trigger)
+  - [ndoo.off](#event_off)
 
-<a name="event"></a>
+<a name="event"/>
 ## event
 
-<a name="event_on"></a>
+<a name="event_on"/>
 ### ndoo.on(string:event, function:callback)
 侦听指定事件 
 
@@ -56,7 +56,7 @@ ndoo.on('test', function() {
 });
 ```
 
-<a name="event_trigger"></a>
+<a name="event_trigger"/>
 ### ndoo.trigger(string:event [, data...])
 触发指定事件
 
@@ -67,7 +67,7 @@ ndoo.trigger('test');
 // output 'test event'
 ```
 
-<a name="event_off"></a>
+<a name="event_off"/>
 ### ndoo.off(string:event)
 移除指定事件
 
