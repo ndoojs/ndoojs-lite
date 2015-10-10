@@ -34,3 +34,46 @@ ndoojs lite是[ndoojs](http://github.com/ndoojs/ndoojs)的前身，最初被应�
 ```
 
 参见 docs/example/index.html
+
+# api 参考
+- [event](#event)
+  1. [ndoo.on](#event_on)
+  2. [ndoo.trigger](#event_trigger)
+  3. [ndoo.off](#event_off)
+
+<a name="event"></a>
+## event
+
+<a name="event_on"></a>
+### ndoo.on(string:event, function:callback)
+侦听指定事件 
+
+Example:
+
+```javascript
+ndoo.on('test', function() {
+  console.log('test event');
+});
+```
+
+<a name="event_trigger"></a>
+### ndoo.trigger(string:event [, data...])
+触发指定事件
+
+Example:
+
+```javascript
+ndoo.trigger('test');
+// output 'test event'
+```
+
+<a name="event_off"></a>
+### ndoo.off(string:event)
+移除指定事件
+
+Example:
+
+```javascript
+ndoo.off('test');
+```
+
