@@ -78,7 +78,7 @@ _stor    = _n.storage
  */
 _n.app = (name, controller) ->
   _n.app[name] ||= {}
-  $.extend _n.app[name], app
+  $.extend _n.app[name], controller
   return
 /* }}} */
 

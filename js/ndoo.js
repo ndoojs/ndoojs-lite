@@ -73,7 +73,7 @@
   _n.app = function(name, controller){
     var ref$;
     (ref$ = _n.app)[name] || (ref$[name] = {});
-    $.extend(_n.app[name], app);
+    $.extend(_n.app[name], controller);
   };
   /* }}} */
   $.extend(_n, {
