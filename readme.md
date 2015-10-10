@@ -37,7 +37,7 @@ ndoojs lite是[ndoojs](http://github.com/ndoojs/ndoojs)的前身，最初被应�
 
 # api 参考
 - [event](#event)
-  - [ndoo.on](#ndoo.on)
+  - [ndoo.on](#ndoo-on)
   - [ndoo.trigger](#event_trigger)
   - [ndoo.off](#event_off)
 
