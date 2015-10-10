@@ -40,6 +40,9 @@ ndoojs lite是[ndoojs](http://github.com/ndoojs/ndoojs)的前身，最初被应�
   - [ndoo.on](#event_on)
   - [ndoo.trigger](#event_trigger)
   - [ndoo.off](#event_off)
+- [util](#util)
+  - [ndoo.stroage](#ndoo_stroage)
+  - [ndoo.getPk](#ndoo_getpk)
 
 <a name="event"></a>
 ## event
@@ -77,3 +80,37 @@ Example:
 ndoo.off('test');
 ```
 
+<a name="util"></a>
+## util
+
+<a name="ndoo_storage"></a>
+### ndoo.storage(string:key, any:value, const:option)
+带读取控制的变量暂存
+
+Example:
+
+```javascript
+// alias _stor
+var _stor = ndoo.storage;
+// set abc vlaue 1
+_stor('abc', 1); // 1
+// set abc value 2 failed
+_stor('abc', 2); // false
+// set abc value 2
+_stor('abc', 2, _stor.REWRITE); // 2
+// delete abc
+_stor('abc', null, _stor.DESTROY); // true
+```
+
+<a name="ndoo_getpk"></a>
+### ndoo.getPk([string:prefix])
+取得一个唯一的主键
+
+Example:
+
+```javascript
+ndoo.getPk();
+// "1444489955351"
+ndoo.getPk('myPrefix_');
+// "myPrefix_1444489955352"
+```
