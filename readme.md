@@ -44,6 +44,7 @@ ndoojs lite是[ndoojs](http://github.com/ndoojs/ndoojs)的前身，最初被应�
   - [ndoo.stroage](#ndoo_storage)
   - [ndoo.getPk](#ndoo_getpk)
   - [ndoo.hook](#ndoo_hook)
+  - [ndoo.delayRun](#ndoo_delayRun)
 
 <a name="event"></a>
 ## event
@@ -132,4 +133,14 @@ ndoo.hook('test', function() {
 }, true);
 ndoo.hook('test')
 // output 'test2'
+```
+
+<a name="ndoo_delayRun"></a>
+### ndoo.delayRun(const:level, function:fn);
+添加一个延迟函数（老API不推荐使用，使用on/trigger替代）
+
+```javascript
+ndoo.delayRun(ndoo.PAGE_DOM, function() {
+  console.log('Dom Content is Loaded');
+});
 ```
