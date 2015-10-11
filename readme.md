@@ -43,6 +43,7 @@ ndoojs lite是[ndoojs](http://github.com/ndoojs/ndoojs)的前身，最初被应�
 - [util](#util)
   - [ndoo.stroage](#ndoo_storage)
   - [ndoo.getPk](#ndoo_getpk)
+  - [ndoo.hook](#ndoo_hook)
 
 <a name="event"></a>
 ## event
@@ -113,4 +114,22 @@ ndoo.getPk();
 // "1444489955351"
 ndoo.getPk('myPrefix_');
 // "myPrefix_1444489955352"
+```
+
+<a name="ndoo_hook"></a>
+### ndoo.hook(string:hookName, function:callback, boolean:isOverwrite)
+设置&触发一个勾子(老API不推荐使用，使用on/trigger替代)
+
+```javascript
+ndoo.hook('test', function() {
+  console.log('test');
+});
+ndoo.hook('test');
+// output 'test'
+
+ndoo.hook('test', function() {
+  console.log('test2');
+}, true);
+ndoo.hook('test')
+// output 'test2'
 ```
