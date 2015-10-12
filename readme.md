@@ -45,6 +45,8 @@ ndoojs lite是[ndoojs](http://github.com/ndoojs/ndoojs)的前身，最初被应�
   - [ndoo.getPk](#ndoo_getpk)
   - [ndoo.hook](#ndoo_hook)
   - [ndoo.delayRun](#ndoo_delayRun)
+- [namespace](#namespace)
+  - [ndoo.func](#ndoo_func)
 
 <a name="event"></a>
 ## event
@@ -143,4 +145,19 @@ ndoo.hook('test')
 ndoo.delayRun(ndoo.PAGE_DOM, function() {
   console.log('Dom Content is Loaded');
 });
+```
+
+<a name="namespace"></a>
+## namespace
+
+<a name="ndoo_func"></a>
+### ndoo.func
+函数名称空间，用来存放一些自定义函数。
+
+```javascript
+ndoo.func.add = function (a, b) {
+    return a + b;
+}
+
+ndoo.func.add(1, 2);
 ```
