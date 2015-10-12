@@ -47,6 +47,7 @@ ndoojs lite是[ndoojs](http://github.com/ndoojs/ndoojs)的前身，最初被应�
   - [ndoo.delayRun](#ndoo_delayRun)
 - [namespace](#namespace)
   - [ndoo.func](#ndoo_func)
+  - [ndoo.vars](#ndoo_vars)
 
 <a name="event"></a>
 ## event
@@ -160,4 +161,16 @@ ndoo.func.add = function (a, b) {
 }
 
 ndoo.func.add(1, 2);
+```
+
+<a name="ndoo_vars"></a>
+### ndoo.vars
+变量名称空间，用来存放一些参数及配置。
+
+```javascript
+
+ndoo.vars.productListUrl = '/product/list';
+
+$.ajax(ndoo.vars.productListUrl, ...);
+
 ```
