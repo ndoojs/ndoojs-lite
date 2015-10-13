@@ -68,6 +68,16 @@ ndoo.app('home', {
 });
 ```
 
+<a name="ndoo_init"></a>
+### ndoo.init([string:id])
+初始化
+
+Example:
+
+```javascript
+ndoo.init();
+```
+
 <a name="event"></a>
 ## event
 
