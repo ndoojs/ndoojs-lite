@@ -36,6 +36,8 @@ ndoojs lite是[ndoojs](http://github.com/ndoojs/ndoojs)的前身，最初被应�
 参见 docs/example/index.html
 
 # api 参考
+- [main](#main)
+  - [ndoo.app](#ndoo_app)
 - [event](#event)
   - [ndoo.on](#event_on)
   - [ndoo.trigger](#event_trigger)
@@ -48,6 +50,23 @@ ndoojs lite是[ndoojs](http://github.com/ndoojs/ndoojs)的前身，最初被应�
 - [namespace](#namespace)
   - [ndoo.func](#ndoo_func)
   - [ndoo.vars](#ndoo_vars)
+
+<a name="main"></a>
+## main
+
+<a name="ndoo_app"></a>
+### ndoo.app(string:name, object:controller)
+添加一个指定的控制器
+
+Example:
+
+```javascript
+ndoo.app('home', {
+  indexAction: function() {
+    return $('#container').html('hello ndoojs!');
+  }
+});
+```
 
 <a name="event"></a>
 ## event
