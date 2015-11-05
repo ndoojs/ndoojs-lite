@@ -151,7 +151,7 @@ ndoo.getPk('myPrefix_');
 ```
 
 <a name="ndoo_hook"></a>
-### ndoo.hook(string:hookName, function:callback, boolean:isOverwrite)
+### ndoo.hook(string:hookName, function:callback, boolean:isOverwrite) *Deprecated
 设置&触发一个勾子(老API不推荐使用，使用on/trigger替代)
 
 ```javascript
@@ -169,7 +169,7 @@ ndoo.hook('test')
 ```
 
 <a name="ndoo_delayRun"></a>
-### ndoo.delayRun(const:level, function:fn);
+### ndoo.delayRun(const:level, function:fn); *Deprecated
 添加一个延迟函数（老API不推荐使用，使用on/trigger替代）
 
 ```javascript
