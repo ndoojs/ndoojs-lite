@@ -10,7 +10,16 @@
     "livescript": "^1.4.0"
   },
   "devDependencies": {
-    "livescript": "^1.4.0"
+    "chai": "^3.4.1",
+    "karma": "^0.13.15",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.2.1",
+    "karma-live-preprocessor": "^0.2.2",
+    "karma-mocha": "^0.2.1",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "livescript": "^1.4.0",
+    "mocha": "^2.3.4",
+    "phantomjs": "^1.9.18"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
