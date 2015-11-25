@@ -19,6 +19,7 @@ module.exports = function(config) {
     files: [
       'mock/jquery.mock.js',
       jsPath+'/js/ndoo_all.js',
+      'tool/ndoo_reset.js',
       'unit/*Spec.ls'
     ],
 
