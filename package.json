@@ -22,6 +22,7 @@
     "phantomjs": "^1.9.18"
   },
   "scripts": {
+    "startKarma": "karma start test/conf/karma.conf.js --browsers=PhantomJS",
     "test": "echo \"Error: no test specified\" && exit 1",
     "jsdoc": "jsdoc -c jsdoc.conf js/*.js readme.md"
   },
