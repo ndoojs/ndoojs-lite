@@ -27,3 +27,9 @@ describe 'ndoo framework test >', !->
         expect(_stor('abc', 456)).to.equal false
       it 'get abc after rewrite, should be 123', !->
         expect(_stor('abc')).to.equal 123
+
+      it 'rewrite abc add option, should be Truthy', ->
+        expect(_stor 'abc', 456, _stor.REWRITE).to.be.ok
+
+      it 'get abc after rewrite, should be 456', ->
+        expect(_stor('abc')).to.equal 456
