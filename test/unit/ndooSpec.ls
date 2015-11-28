@@ -25,11 +25,19 @@ describe 'ndoo framework test >', !->
     describe 'rewrite >', (x) !->
       it 'rewrite abc without option, should be false', !->
         expect(_stor('abc', 456)).to.equal false
+
       it 'get abc after rewrite, should be 123', !->
         expect(_stor('abc')).to.equal 123
 
-      it 'rewrite abc add option, should be Truthy', ->
+      it 'rewrite abc add option, should be Truthy', !->
         expect(_stor 'abc', 456, _stor.REWRITE).to.be.ok
 
       it 'get abc after rewrite, should be 456', ->
         expect(_stor('abc')).to.equal 456
+
+    describe 'destroy >', (x) !->
+      it 'remove abc for storage, should be true', !->
+        expect(_stor('abc', null, _stor.DESTROY)).to.equal true
+
+      it 'get abc for storage, should be undefined', !->
+        expect(_stor('abc')).to.be.a \undefined
