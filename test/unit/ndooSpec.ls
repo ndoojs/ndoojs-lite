@@ -41,3 +41,15 @@ describe 'ndoo framework test >', !->
 
       it 'get abc for storage, should be undefined', !->
         expect(_stor('abc')).to.be.a \undefined
+
+  describe 'getPk test >', (x) !->
+    _n = null
+
+    before !->
+      ``_n = ndoo``
+
+    after !->
+      _n.reset()
+
+    it 'getPk should to ok', !->
+      expect(_n.getPk()).to.be.ok
