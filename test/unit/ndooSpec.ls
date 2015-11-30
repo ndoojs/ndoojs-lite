@@ -53,3 +53,6 @@ describe 'ndoo framework test >', !->
 
     it 'getPk should to ok', !->
       expect(_n.getPk()).to.be.ok
+
+    it 'getPk should match num', ->
+      expect(_n.getPk()).to.match /^\d+$/
