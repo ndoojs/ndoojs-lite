@@ -56,3 +56,6 @@ describe 'ndoo framework test >', !->
 
     it 'getPk should match num', ->
       expect(_n.getPk()).to.match /^\d+$/
+
+    it 'getPk should prefix', ->
+      expect(_n.getPk('test_')).to.match /^test_\d+$/
