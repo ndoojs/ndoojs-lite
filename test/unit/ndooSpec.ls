@@ -59,3 +59,15 @@ describe 'ndoo framework test >', !->
 
     it 'getPk should prefix', ->
       expect(_n.getPk('test_')).to.match /^test_\d+$/
+
+  describe 'page id test >', (x) !->
+    _n = undefined
+
+    before ->
+      ``_n = ndoo``
+
+    after ->
+      _n.reset()
+
+    it 'get page id should be empty', !->
+      expect(_n.pageId).to.equal ''
