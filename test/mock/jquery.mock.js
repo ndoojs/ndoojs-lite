@@ -28,6 +28,11 @@
         call()
       }
     }
+    this.on = function(event, call) {
+      if (event == 'load') {
+        call()
+      }
+    }
   }
 
   fn.extend = function (handler, object) {
