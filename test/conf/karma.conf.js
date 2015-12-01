@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Tue Nov 24 2015 23:07:52 GMT+0800 (CST)
 
-var jsPath = '..'
+var jsPath = '../js'
 
 module.exports = function(config) {
   config.set({
@@ -17,8 +17,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      '../node_modules/phantomjs-polyfill/bind-polyfill.js',
       'mock/jquery.mock.js',
-      jsPath+'/js/ndoo_all.js',
+      jsPath+'/ndoo_all.js',
       'tool/ndoo_reset.js',
       'unit/*Spec.ls'
     ],

@@ -21,7 +21,8 @@
     "karma-phantomjs-launcher": "^0.2.1",
     "livescript": "^1.4.0",
     "mocha": "^2.3.4",
-    "phantomjs": "^1.9.18"
+    "phantomjs": "^1.9.18",
+    "phantomjs-polyfill": "0.0.1"
   },
   "scripts": {
     "startKarma": "karma start test/conf/karma.conf.js --browsers=PhantomJS",
