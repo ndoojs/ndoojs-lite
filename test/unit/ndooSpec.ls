@@ -71,3 +71,17 @@ describe 'ndoo framework test >', !->
 
     it 'get page id should be empty', !->
       expect(_n.pageId).to.equal ''
+
+    describe 'init call', (x) !->
+      initPageId = undefined
+
+      before ->
+        initPageId = _n.initPageId
+        chai.spy.on _n, 'initPageId'
+        _n.init 'home/index'
+
+      after ->
+        _n.initPageId = initPageId
+
+      it 'initPageId should be call', !->
+        expect(_n.initPageId).to.have.been.called()
