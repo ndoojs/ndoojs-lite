@@ -85,3 +85,8 @@ describe 'ndoo framework test >', !->
 
       it 'initPageId should be call', !->
         expect(_n.initPageId).to.have.been.called()
+
+      it 'initPageId param should be home/index', !->
+        expect(_n.initPageId).to.have.been.called.with 'home/index'
+      it 'pageId should be home/index', !->
+        expect(_n.pageId).to.equal 'home/index'
