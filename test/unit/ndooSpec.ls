@@ -76,7 +76,7 @@ describe 'ndoo framework test >', !->
       initPageId = undefined
 
       before ->
-        initPageId = _n.initPageId
+        ``initPageId = _n.initPageId``
         chai.spy.on _n, 'initPageId'
         _n.init 'home/index'
 
@@ -91,7 +91,7 @@ describe 'ndoo framework test >', !->
       it 'pageId should be home/index', !->
         expect(_n.pageId).to.equal 'home/index'
 
-  describe 'event test >', ->
+  describe 'event test >', (x) ->
     _n = null
 
     before ->
@@ -100,3 +100,11 @@ describe 'ndoo framework test >', !->
 
     after ->
       _n.reset()
+
+
+    describe 'default event >', (x) ->
+      defaultEvent1 = chai.spy()
+
+      it 'defaultEvent1 not be call', ->
+        _n.on 'defaultTest', defaultEvent1
+        expect(defaultEvent1).not.to.have.been.called()
