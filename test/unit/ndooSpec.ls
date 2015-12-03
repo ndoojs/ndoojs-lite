@@ -108,3 +108,7 @@ describe 'ndoo framework test >', !->
       it 'defaultEvent1 not be call', ->
         _n.on 'defaultTest', defaultEvent1
         expect(defaultEvent1).not.to.have.been.called()
+
+      it 'trigger event default event should be call', ->
+        _n.trigger 'defaultTest'
+        expect(defaultEvent1).to.have.been.called()
