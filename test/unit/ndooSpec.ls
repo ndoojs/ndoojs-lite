@@ -90,3 +90,13 @@ describe 'ndoo framework test >', !->
         expect(_n.initPageId).to.have.been.called.with 'home/index'
       it 'pageId should be home/index', !->
         expect(_n.pageId).to.equal 'home/index'
+
+  describe 'event test >', ->
+    _n = null
+
+    before ->
+      ``_n = ndoo``
+      _n.init 'home/index'
+
+    after ->
+      _n.reset()
