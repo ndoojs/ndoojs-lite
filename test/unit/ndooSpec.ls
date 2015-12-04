@@ -112,3 +112,14 @@ describe 'ndoo framework test >', !->
       it 'trigger event default event should be call', ->
         _n.trigger 'defaultTest'
         expect(defaultEvent1).to.have.been.called()
+
+    describe 'hook test >', (x) ->
+      defaultHook = chai.spy()
+
+      it 'defaultHook not be call', ->
+        expect(defaultHook).not.to.have.been.called()
+
+      it 'call defaultHook should be call', ->
+        _n.hook 'defaultHook', defaultHook
+        _n.hook 'defaultHook'
+        expect(defaultHook).to.have.been.called()
