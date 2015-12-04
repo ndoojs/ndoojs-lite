@@ -121,10 +121,10 @@
    */
   _n.hook = function(name, call, isOverwrite){
     if (call && call.apply) {
-      if (this._eventData[name] && !isOverwrite) {
+      if (this._eventData.hasOwnProperty(name) && !isOverwrite) {
         return false;
       }
-      _n._eventData[name] = call;
+      _n._eventData[name] = [call];
       return true;
     } else {
       return _n.trigger.apply(_n, [].concat(name, call || []));

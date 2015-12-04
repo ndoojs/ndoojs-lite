@@ -121,8 +121,8 @@ _n.delayRun = (level, fn) !->
  */
 _n.hook = (name, call, isOverwrite) ->
   if call and call.apply
-    return false if @_eventData[name] and not isOverwrite
-    _n._eventData[name] = call
+    return false if @_eventData.hasOwnProperty(name) and not isOverwrite
+    _n._eventData[name] = [call]
     true
   else
     _n.trigger.apply _n, [].concat(name, call or [])
