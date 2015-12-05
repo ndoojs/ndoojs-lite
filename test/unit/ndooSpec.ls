@@ -129,3 +129,9 @@ describe 'ndoo framework test >', !->
         _n.hook 'defaultHook', overwriteHook
         _n.hook 'defaultHook'
         expect(overwriteHook).not.to.have.been.called()
+
+      it 'hook overwrite should be call', ->
+        overwriteHook = chai.spy()
+        _n.hook 'defaultHook', overwriteHook, true
+        _n.hook 'defaultHook'
+        expect(overwriteHook).to.have.been.called()
