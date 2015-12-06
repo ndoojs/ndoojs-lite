@@ -116,8 +116,13 @@ describe 'ndoo framework test >', !->
     describe 'off event>', (x) !->
       offEventSpy = chai.spy()
 
-      it 'off event calld should be once', ! ->
+      it 'off event calld should be once', !->
         _n.on 'offEventTest', offEventSpy
+        _n.trigger 'offEventTest'
+        expect(offEventSpy).to.have.been.called.once
+
+      it 'off event and again trigger event should be once', !->
+        _n.off 'offEventTest'
         _n.trigger 'offEventTest'
         expect(offEventSpy).to.have.been.called.once
 
