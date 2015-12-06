@@ -113,6 +113,14 @@ describe 'ndoo framework test >', !->
         _n.trigger 'defaultTest'
         expect(defaultEvent1).to.have.been.called()
 
+    describe 'off event>', (x) !->
+      offEventSpy = chai.spy()
+
+      it 'off event calld should be once', ! ->
+        _n.on 'offEventTest', offEventSpy
+        _n.trigger 'offEventTest'
+        expect(offEventSpy).to.have.been.called.once
+
     describe 'hook test >', (x) ->
       defaultHook = chai.spy()
 
