@@ -148,3 +148,22 @@ describe 'ndoo framework test >', !->
         _n.hook 'defaultHook', overwriteHook, true
         _n.hook 'defaultHook'
         expect(overwriteHook).to.have.been.called()
+
+  describe 'ndoo app test >', (x) !->
+    describe 'home/index action test >', (x) !->
+      _n = null
+      indexAction = null
+
+      before !->
+        ``_n = ndoo``
+        ``indexAction = chai.spy()``
+        _n.app 'home',
+          indexAction: indexAction
+
+      after !->
+        _n.reset()
+        ``_n = null``
+        ``indexAction = null``
+
+      it 'has home app', !->
+        expect(_n.app['home']).to.be.ok
