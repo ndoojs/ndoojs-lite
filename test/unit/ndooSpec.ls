@@ -167,3 +167,7 @@ describe 'ndoo framework test >', !->
 
       it 'has home app', !->
         expect(_n.app['home']).to.be.ok
+
+      it 'indexAction should be call', !->
+        _n.init 'home/index'
+        expect(indexAction).to.have.been.called()
