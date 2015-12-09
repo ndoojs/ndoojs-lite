@@ -154,13 +154,13 @@ describe 'ndoo framework test >', !->
       _n = null
       indexAction = null
 
-      before !->
+      beforeEach !->
         ``_n = ndoo``
         ``indexAction = chai.spy()``
         _n.app 'home',
           indexAction: indexAction
 
-      after !->
+      afterEach !->
         _n.reset()
         ``_n = null``
         ``indexAction = null``
@@ -171,3 +171,11 @@ describe 'ndoo framework test >', !->
       it 'indexAction should be call', !->
         _n.init 'home/index'
         expect(indexAction).to.have.been.called()
+
+      it 'home.init should be call', !->
+        initSpy = chai.spy()
+        _n.app 'home',
+          init: initSpy
+          indexAction: indexAction
+        _n.init 'home/indexAction'
+        expect(initSpy).to.have.been.called()
