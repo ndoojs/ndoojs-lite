@@ -177,5 +177,13 @@ describe 'ndoo framework test >', !->
         _n.app 'home',
           init: initSpy
           indexAction: indexAction
-        _n.init 'home/indexAction'
+        _n.init 'home/index'
         expect(initSpy).to.have.been.called()
+
+      it 'indexBefore should be call', !->
+        indexBefore = chai.spy()
+        _n.app 'home',
+          indexBefore: indexBefore
+          indexAction: indexAction
+        _n.init 'home/index'
+        expect(indexBefore).to.have.been.called()
