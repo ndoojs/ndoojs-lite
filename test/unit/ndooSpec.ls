@@ -187,3 +187,11 @@ describe 'ndoo framework test >', !->
           indexAction: indexAction
         _n.init 'home/index'
         expect(indexBefore).to.have.been.called()
+
+      it 'indexAfter should be call', !->
+        indexAfter = chai.spy()
+        _n.app \home,
+          indexAfter: indexAfter
+          indexAction: indexAction
+        _n.init 'home/index'
+        expect(indexAfter).to.have.been.called()
