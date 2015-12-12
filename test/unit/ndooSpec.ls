@@ -195,3 +195,10 @@ describe 'ndoo framework test >', !->
           indexAction: indexAction
         _n.init 'home/index'
         expect(indexAfter).to.have.been.called()
+
+      it 'testAction param shoue be ok', !->
+        testAction = chai.spy()
+        _n.app \home,
+          testAction: testAction
+        _n.init 'home/test?abc=1'
+        expect(testAction).to.been.called.with('?abc=1')
