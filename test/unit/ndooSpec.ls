@@ -202,3 +202,10 @@ describe 'ndoo framework test >', !->
           testAction: testAction
         _n.init 'home/test?abc=1'
         expect(testAction).to.been.called.with('?abc=1')
+
+      it 'test emptyAction should be call', !->
+        emptyAction = chai.spy()
+        _n.app \home,
+          _emptyAction: emptyAction
+        _n.init 'home'
+        expect(emptyAction).to.have.been.called()
