@@ -1,5 +1,5 @@
 describe 'ndoo framework test >', !->
-  describe 'storage test >', (x) ->
+  describe 'storage test >', (...) ->
     _stor = undefined
 
     before !->
@@ -8,13 +8,13 @@ describe 'ndoo framework test >', !->
     after !->
       ndoo.reset()
 
-    it 'ndoo.storage should deinfe', !->
+    it 'ndoo.storage should define', !->
       expect(_stor).to.not.a \undefined
 
     it 'get abc, should be undefined', !->
       expect(_stor('abc')).to.be.a \undefined
 
-    describe 'set value >', (x) !->
+    describe 'set value >', (...) !->
       it 'set abc to 123, should be 123', !->
         # console.log _stor('abc', 123)
         expect(_stor('abc', 123)).to.equal 123
@@ -22,7 +22,7 @@ describe 'ndoo framework test >', !->
       it 'get abc after set, should be 123 ', !->
         expect(_stor('abc')).to.equal 123
 
-    describe 'rewrite >', (x) !->
+    describe 'rewrite >', (...) !->
       it 'rewrite abc without option, should be false', !->
         expect(_stor('abc', 456)).to.equal false
 
@@ -35,14 +35,14 @@ describe 'ndoo framework test >', !->
       it 'get abc after rewrite, should be 456', ->
         expect(_stor('abc')).to.equal 456
 
-    describe 'destroy >', (x) !->
+    describe 'destroy >', (...) !->
       it 'remove abc for storage, should be true', !->
         expect(_stor('abc', null, _stor.DESTROY)).to.equal true
 
       it 'get abc for storage, should be undefined', !->
         expect(_stor('abc')).to.be.a \undefined
 
-  describe 'getPk test >', (x) !->
+  describe 'getPk test >', (...) !->
     _n = null
 
     before !->
@@ -60,7 +60,7 @@ describe 'ndoo framework test >', !->
     it 'getPk should prefix', ->
       expect(_n.getPk('test_')).to.match /^test_\d+$/
 
-  describe 'page id test >', (x) !->
+  describe 'page id test >', (...) !->
     _n = undefined
 
     before ->
@@ -72,7 +72,7 @@ describe 'ndoo framework test >', !->
     it 'get page id should be empty', !->
       expect(_n.pageId).to.equal ''
 
-    describe 'init call', (x) !->
+    describe 'init call', (...) !->
       initPageId = undefined
 
       before ->
@@ -91,7 +91,7 @@ describe 'ndoo framework test >', !->
       it 'pageId should be home/index', !->
         expect(_n.pageId).to.equal 'home/index'
 
-  describe 'event test >', (x) ->
+  describe 'event test >', (...) ->
     _n = null
 
     before ->
@@ -102,7 +102,7 @@ describe 'ndoo framework test >', !->
       _n.reset()
 
 
-    describe 'default event >', (x) ->
+    describe 'default event >', (...) ->
       defaultEvent1 = chai.spy()
 
       it 'defaultEvent1 not be call', ->
@@ -113,7 +113,7 @@ describe 'ndoo framework test >', !->
         _n.trigger 'defaultTest'
         expect(defaultEvent1).to.have.been.called()
 
-    describe 'off event>', (x) !->
+    describe 'off event>', (...) !->
       offEventSpy = chai.spy()
 
       it 'off event calld should be once', !->
@@ -126,7 +126,7 @@ describe 'ndoo framework test >', !->
         _n.trigger 'offEventTest'
         expect(offEventSpy).to.have.been.called.once
 
-    describe 'hook test >', (x) ->
+    describe 'hook test >', (...) ->
       defaultHook = chai.spy()
 
       it 'defaultHook not be call', ->
@@ -149,8 +149,8 @@ describe 'ndoo framework test >', !->
         _n.hook 'defaultHook'
         expect(overwriteHook).to.have.been.called()
 
-  describe 'ndoo app test >', (x) !->
-    describe 'home/index action test >', (x) !->
+  describe 'ndoo app test >', (...) !->
+    describe 'home/index action test >', (...) !->
       _n = null
       indexAction = null
 
