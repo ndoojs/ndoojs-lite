@@ -25,8 +25,8 @@
     "phantomjs-polyfill": "0.0.1"
   },
   "scripts": {
-    "startKarma": "karma start test/conf/karma.conf.js --browsers=PhantomJS",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start test/conf/karma.conf.js --browsers=PhantomJS",
+    "debug": "karma start test/conf/karma.conf.js --browsers=Chrome",
     "jsdoc": "jsdoc -c jsdoc.conf js/*.js readme.md"
   },
   "repository": {
